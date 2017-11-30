@@ -24,6 +24,7 @@ fluidRow(
 sidebarLayout(
 sidebarPanel(
 
+textInput('projectname', label="Project Name", value="MgClData"),
 
 fileInput('loadvaldata', 'Load Data', multiple=TRUE,
 accept=c('text/csv',
@@ -34,16 +35,26 @@ tags$hr(),
 
 checkboxInput('manualoverride', "Manually Choose Calibration", value=FALSE),
 uiOutput('selectcal'),
+checkboxInput('manualproduct', "Manually Choose Product", value=FALSE),
+uiOutput('selectproduct'),
+uiOutput('nameproduct'),
+uiOutput('mgclmanual'),
+uiOutput('so4manual'),
+
 
 downloadButton('downloadValData', "Results")
 
 ),
 
 mainPanel(
+tags$style(type="text/css",
+".shiny-output-error { visibility: hidden; }",
+".shiny-output-error:before { visibility: hidden; }"),
 tabsetPanel(
 id = 'dataset2',
-tabPanel('Validation', dataTableOutput('myvaltable2')),
-tabPanel('Molecules', dataTableOutput('moleculetable'))
+tabPanel('Pass/Fail', dataTableOutput('qualitytable')),
+tabPanel('Molecules', dataTableOutput('moleculetable')),
+tabPanel('Elements', dataTableOutput('myvaltable2'))
 
 
 ))))))))

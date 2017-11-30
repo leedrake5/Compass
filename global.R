@@ -1769,8 +1769,13 @@ if(is.na(spectra.line.table)==TRUE){
 }
 
 
-
-
+predict <- function(object, newdata, ...){
+    if(is.na(newdata)==TRUE){
+        NA
+    }else if(is.na(newdata)==FALSE){
+        UseMethod("predict")
+    }
+}
 
 
 

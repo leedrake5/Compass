@@ -34,6 +34,51 @@ shinyServer(function(input, output, session) {
         
     })
     
+
+    output$selectproduct <- renderUI({
+        
+        if(input$manualproduct==TRUE){
+            radioButtons('whichproduct', label="Choose Product", choices=c("Dust Guard", "Dust Guard Plus", "Freeze Guard Zero", "Freeze Guard Corrosion Inhibitor", "Other"), selected="Other")
+        } else {
+            p()
+        }
+        
+    })
+    
+    
+    output$nameproduct <- renderUI({
+        
+        if(input$manualproduct==TRUE && input$whichproduct=="Other"){
+            textInput('othername', "Name Product", value="productName")
+        } else {
+            p()
+        }
+        
+    })
+    
+    
+    output$mgclmanual <- renderUI({
+        
+        if(input$manualproduct==TRUE && input$whichproduct=="Other"){
+            numericInput('mgclmin', "MgCl Minimum", value=30)
+        } else {
+            p()
+        }
+        
+    })
+    
+    output$so4manual <- renderUI({
+        
+        if(input$manualproduct==TRUE && input$whichproduct=="Other"){
+            numericInput('so4max', "SO4 Max", value=0.9)
+        } else {
+            p()
+        }
+        
+    })
+    
+    
+    
     observeEvent(is.null(input$loadvaldata)==FALSE, {
         
 
@@ -495,7 +540,7 @@ shinyServer(function(input, output, session) {
 
 tableInputValQuant <- reactive({
     
-    if(input$manualoverride==FALSE && is.na(T4S2480InputValQuant())==FALSE && is.na(T4S2481InputValQuant())==TRUE){
+    results <- if(input$manualoverride==FALSE && is.na(T4S2480InputValQuant())==FALSE && is.na(T4S2481InputValQuant())==TRUE){
             T4S2480InputValQuant()
     }else if(input$manualoverride==FALSE && is.na(T4S2480InputValQuant())==TRUE && is.na(T4S2481InputValQuant())==FALSE){
             T4S2481InputValQuant()
@@ -507,6 +552,8 @@ tableInputValQuant <- reactive({
         T4S2481InputValQuant()
     }
     
+    results$Spectrum <- gsub('.CSV','',results$Spectrum)
+    results
     
 })
 
@@ -519,15 +566,190 @@ moleculeEstimate <- reactive({
     MgCl.fromCl <- elemental.results[,"Cl.K.alpha"]*((fluorescence.lines["Mg", "AtomicWeight"]+fluorescence.lines["Cl", "AtomicWeight"])/fluorescence.lines["Cl", "AtomicWeight"])
     
     MgCl.fromMean <- rowMeans(data.frame(MgCl.fromMg, MgCl.fromCl))
+    
+    MgCl <- elemental.results[,"Mg.K.alpha"] + elemental.results[,"Cl.K.alpha"]
 
     SO4 <- elemental.results[,"S.K.alpha"]*((fluorescence.lines["S", "AtomicWeight"]+fluorescence.lines["O", "AtomicWeight"]*4)/fluorescence.lines["S", "AtomicWeight"])
     
-    molecule.frame <- data.frame(MgCl.fromMg, MgCl.fromCl, MgCl.fromMean, SO4)
-    colnames(molecule.frame) <- c("MgCl.Mg", "MgCl.Cl", "MgCl.Mean", "SO4")
+    molecule.frame <- data.frame(MgCl, SO4)
+    colnames(molecule.frame) <- c("MgCl", "SO4")
     rownames(molecule.frame) <- elemental.results$Spectrum
     molecule.frame
     
 })
+
+contextQuality <- reactive({
+    
+    #####Product Keys
+    #Freeze Guard Zero
+    #T4SXXXX_FG0_###
+    
+    #Freeze Guard Corrosion Inhibitor
+    #T4SXXXX_FGC_###
+    
+    #Dust Guard
+    #T4SXXXX_DGR_###
+    
+    #Dust Guard Plus
+    #T4SXXXX_DGP_###
+    
+    molecular.data <- moleculeEstimate()
+    molecular.data$Spectrum <- rownames(molecular.data)
+    
+    molecular.data$Product <- substr(molecular.data$Spectrum, 9, 11)
+    
+    molecular.data$QualityMgCl30 <- rep("Pass", length(molecular.data[,1]))
+    molecular.data$QualityMgCl30[molecular.data$MgCl <= 30] <- "Fail"
+    
+    molecular.data$QualityMgCl33 <- rep("Pass", length(molecular.data[,1]))
+    molecular.data$QualityMgCl33[molecular.data$MgCl <= 33] <- "Fail"
+    
+    molecular.data$QualitySO409 <- rep("Pass", length(molecular.data[,1]))
+    molecular.data$QualitySO409[molecular.data$SO4 >= 0.9] <- "Fail"
+    
+    molecular.data$MgClQuality <- rep("", length(molecular.data[,1]))
+    molecular.data$MgClQuality[molecular.data$Product==c("FG0", "FGC", "DGR")] <- molecular.data$QualityMgCl30[molecular.data$Product==c("FG0", "FGC", "DGR")]
+    
+    molecular.data$MgClQuality[molecular.data$Product==c("DGP")] <- molecular.data$QualityMgCl33[molecular.data$Product==c("DGP")]
+    
+    molecular.data$SO4Quality <- rep("", length(molecular.data[,1]))
+
+    molecular.data$SO4Quality[molecular.data$Product==c("FG0", "FGC")] <- molecular.data$QualitySO409[molecular.data$Product==c("FG0", "FGC")]
+    
+    
+    molecular.data$Product[!(molecular.data$Product %in% c("DGR", "DGP", "FG0", "FGC"))] <- "Unknown"
+    molecular.data$Product[molecular.data$Product=="FG0"] <- "Freeze Guard Zero"
+    molecular.data$Product[molecular.data$Product=="FGC"] <- "Freeze Guard Corrosion Inhibitor"
+    molecular.data$Product[molecular.data$Product=="DGR"] <- "Dust Guard"
+    molecular.data$Product[molecular.data$Product=="DGP"] <- "Dust Guard Plus"
+    
+    quality.data <- molecular.data[, c("Product", "MgClQuality", "SO4Quality", "MgCl", "SO4")]
+    
+    quality.data
+    
+ 
+    
+})
+
+
+
+
+dgQuality <- reactive({
+    
+    molecular.data <- moleculeEstimate()
+    molecular.data$Spectrum <- rownames(molecular.data)
+    molecular.data$Product <- input$whichproduct
+    
+    
+    molecular.data$MgClQuality <- rep("Pass", length(molecular.data[,1]))
+    molecular.data$MgClQuality[molecular.data$MgCl <= 30] <- "Fail"
+    
+    molecular.data$SO4Quality <- rep("", length(molecular.data[,1]))
+    
+    
+    molecular.data[,c("Product", "MgClQuality", "SO4Quality", "MgCl", "SO4")]
+    
+    
+})
+
+dgpQuality <- reactive({
+    
+    molecular.data <- moleculeEstimate()
+    molecular.data$Spectrum <- rownames(molecular.data)
+    molecular.data$Product <- input$whichproduct
+    
+    
+    molecular.data$MgClQuality <- rep("Pass", length(molecular.data[,1]))
+    molecular.data$MgClQuality[molecular.data$MgCl <= 33] <- "Fail"
+    
+    molecular.data$SO4Quality <- rep("", length(molecular.data[,1]))
+    
+    
+    molecular.data[,c("Product", "MgClQuality", "SO4Quality", "MgCl", "SO4")]
+    
+    
+})
+
+fg0Quality <- reactive({
+    
+    molecular.data <- moleculeEstimate()
+    molecular.data$Spectrum <- rownames(molecular.data)
+    molecular.data$Product <- input$whichproduct
+    
+    
+    molecular.data$MgClQuality <- rep("Pass", length(molecular.data[,1]))
+    molecular.data$MgClQuality[molecular.data$MgCl <= 30] <- "Fail"
+    
+    molecular.data$SO4Quality <- rep("Pass", length(molecular.data[,1]))
+    molecular.data$SO4Quality[molecular.data$SO4 >= 0.9] <- "Fail"
+    
+    molecular.data[,c("Product", "MgClQuality", "SO4Quality", "MgCl", "SO4")]
+    
+    
+})
+
+
+fgcQuality <- reactive({
+    
+    molecular.data <- moleculeEstimate()
+    molecular.data$Spectrum <- rownames(molecular.data)
+    molecular.data$Product <- input$whichproduct
+    
+    
+    molecular.data$MgClQuality <- rep("Pass", length(molecular.data[,1]))
+    molecular.data$MgClQuality[molecular.data$MgCl <= 30] <- "Fail"
+    
+    molecular.data$SO4Quality <- rep("Pass", length(molecular.data[,1]))
+    molecular.data$SO4Quality[molecular.data$SO4 >= 0.9] <- "Fail"
+    
+    molecular.data[,c("Product", "MgClQuality", "SO4Quality", "MgCl", "SO4")]
+    
+    
+})
+
+
+
+otherQuality <- reactive({
+    
+    molecular.data <- moleculeEstimate()
+    molecular.data$Spectrum <- rownames(molecular.data)
+    molecular.data$Product <- input$whichproduct
+    
+    molecular.data$Product[molecular.data$Product=="Other"] <-  input$othername
+    
+    molecular.data$MgClQuality <- rep("Pass", length(molecular.data[,1]))
+    molecular.data$MgClQuality[molecular.data$MgCl <= input$mgclmin] <- "Fail"
+    
+    molecular.data$SO4Quality <- rep("Pass", length(molecular.data[,1]))
+    molecular.data$SO4Quality[molecular.data$SO4 >= input$so4max] <- "Fail"
+    
+    
+    molecular.data[,c("Product", "MgClQuality", "SO4Quality", "MgCl", "SO4")]
+    
+    
+})
+
+
+ choices=c("Dust Guard", "Dust Guard Plus", "Freeze Guard Zero", "Freeze Guard Corrosion Inhibitor", "Other")
+
+qualityEstimate <- reactive({
+    
+    if(input$manualproduct==FALSE){
+        contextQuality()
+    }else if(input$manualproduct==TRUE && input$whichproduct=="Dust Guard"){
+        dgQuality()
+    }else if(input$manualproduct==TRUE && input$whichproduct=="Dust Guard Plus"){
+        dgpQuality()
+    }else if(input$manualproduct==TRUE && input$whichproduct=="Freeze Guard Zero"){
+        fg0Quality()
+    }else if(input$manualproduct==TRUE && input$whichproduct=="Freeze Guard Corrosion Inhibitor"){
+        fgcQuality()
+    }else if(input$manualproduct==TRUE && input$whichproduct=="Other"){
+        otherQuality()
+    }
+    
+})
+
         
         output$myvaltable2 <- renderDataTable({
             
@@ -541,13 +763,27 @@ moleculeEstimate <- reactive({
             
         })
         
+        output$qualitytable <- renderDataTable({
+            
+                qualityEstimate()
+            
+        })
+        
+        
+        resultList <- reactive({
+            
+            result.list <- list(qualityEstimate(), tableInputValQuant())
+            names(result.list) <- c("Quality", "Elemental Data")
+            result.list
+        })
+        
         # valtest <- lapply(valelements, function(x) predict(calsList[[x]], as.data.frame(val.line.table[x])))
         
         output$downloadValData <- downloadHandler(
-        filename = function() { paste(input$calname, "_ValData", '.csv', sep='', collapse='') },
+        filename = function() { paste(input$projectname,'.xlsx', sep='', collapse='') },
         content = function(file
         ) {
-            write.csv(tableInputValQuant(), file)
+            openxlsx::write.xlsx(resultList(), file=file, colWidths = c(NA, "auto", "auto"))
         }
         )
         
