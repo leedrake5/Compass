@@ -574,7 +574,22 @@ moleculeEstimate <- reactive({
     molecule.frame <- data.frame(round(MgCl, 1), round(SO4, 2))
     colnames(molecule.frame) <- c("MgCl", "SO4")
     rownames(molecule.frame) <- elemental.results$Spectrum
+    
+    
     molecule.frame
+    
+})
+
+firstProduct <- reactive({
+    
+    moleculeFrame <- moleculeEstimate()
+    
+    filenames <- rownames(moleculeFrame)
+    
+    productnames <- substr(filenames, 9, 11)
+    
+    productnames[1]
+    
     
 })
 
@@ -608,7 +623,7 @@ contextQuality <- reactive({
     molecular.data$QualitySO409[molecular.data$SO4 >= 0.9] <- "Fail"
     
     molecular.data$MgClQuality <- rep("", length(molecular.data[,1]))
-    molecular.data$MgClQuality[molecular.data$Product==c("FG0", "FGC", "DGR")] <- molecular.data$QualityMgCl30[molecular.data$Product==c("FG0", "FGC", "DGR")]
+    molecular.data$MgClQuality[molecular.data$Product!=c("DGP")] <- molecular.data$QualityMgCl30[molecular.data$Product!=c("DGP")]
     
     molecular.data$MgClQuality[molecular.data$Product==c("DGP")] <- molecular.data$QualityMgCl33[molecular.data$Product==c("DGP")]
     
@@ -638,7 +653,11 @@ dgQuality <- reactive({
     
     molecular.data <- moleculeEstimate()
     molecular.data$Spectrum <- rownames(molecular.data)
-    molecular.data$Product <- input$whichproduct
+    molecular.data$Product <- if(input$manualproduct==TRUE){
+        input$whichproduct
+    }else if(input$manualproduct==FALSE){
+        firstProduct()
+    }
     
     
     molecular.data$MgClQuality <- rep("Pass", length(molecular.data[,1]))
@@ -656,7 +675,11 @@ dgpQuality <- reactive({
     
     molecular.data <- moleculeEstimate()
     molecular.data$Spectrum <- rownames(molecular.data)
-    molecular.data$Product <- input$whichproduct
+    molecular.data$Product <- if(input$manualproduct==TRUE){
+        input$whichproduct
+    }else if(input$manualproduct==FALSE){
+        firstProduct()
+    }
     
     
     molecular.data$MgClQuality <- rep("Pass", length(molecular.data[,1]))
@@ -674,7 +697,11 @@ fg0Quality <- reactive({
     
     molecular.data <- moleculeEstimate()
     molecular.data$Spectrum <- rownames(molecular.data)
-    molecular.data$Product <- input$whichproduct
+    molecular.data$Product <- if(input$manualproduct==TRUE){
+        input$whichproduct
+    }else if(input$manualproduct==FALSE){
+        firstProduct()
+    }
     
     
     molecular.data$MgClQuality <- rep("Pass", length(molecular.data[,1]))
@@ -693,7 +720,11 @@ fgcQuality <- reactive({
     
     molecular.data <- moleculeEstimate()
     molecular.data$Spectrum <- rownames(molecular.data)
-    molecular.data$Product <- input$whichproduct
+    molecular.data$Product <- if(input$manualproduct==TRUE){
+        input$whichproduct
+    }else if(input$manualproduct==FALSE){
+        firstProduct()
+    }
     
     
     molecular.data$MgClQuality <- rep("Pass", length(molecular.data[,1]))
@@ -730,12 +761,19 @@ otherQuality <- reactive({
 })
 
 
- choices=c("Dust Guard", "Dust Guard Plus", "Freeze Guard Zero", "Freeze Guard Corrosion Inhibitor", "Other")
 
 qualityEstimate <- reactive({
     
-    if(input$manualproduct==FALSE){
+    if(input$manualproduct==FALSE && length(moleculeEstimate()[,1])>=2){
         contextQuality()
+    }else if(input$manualproduct==FALSE && length(moleculeEstimate()[,1])==1 && firstProduct()=="DGR"){
+        dgQuality()
+    }else if(input$manualproduct==FALSE && length(moleculeEstimate()[,1])==1 && firstProduct()=="DGP"){
+        dgpQuality()
+    }else if(input$manualproduct==FALSE && length(moleculeEstimate()[,1])==1 && firstProduct()=="FG0"){
+        fg0Quality()
+    }else if(input$manualproduct==FALSE && length(moleculeEstimate()[,1])==1 && firstProduct()=="FGC"){
+        fgcQuality()
     }else if(input$manualproduct==TRUE && input$whichproduct=="Dust Guard"){
         dgQuality()
     }else if(input$manualproduct==TRUE && input$whichproduct=="Dust Guard Plus"){
