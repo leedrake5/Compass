@@ -623,13 +623,16 @@ contextQuality <- reactive({
     molecular.data$QualitySO409[molecular.data$SO4 >= 0.9] <- "Fail"
     
     molecular.data$MgClQuality <- rep("", length(molecular.data[,1]))
-    molecular.data$MgClQuality[molecular.data$Product!=c("DGP")] <- molecular.data$QualityMgCl30[molecular.data$Product!=c("DGP")]
-    
-    molecular.data$MgClQuality[molecular.data$Product==c("DGP")] <- molecular.data$QualityMgCl33[molecular.data$Product==c("DGP")]
-    
     molecular.data$SO4Quality <- rep("", length(molecular.data[,1]))
 
-    molecular.data$SO4Quality[molecular.data$Product==c("FG0", "FGC")] <- molecular.data$QualitySO409[molecular.data$Product==c("FG0", "FGC")]
+    
+    molecular.data <- data.table(molecular.data)
+    
+    molecular.data[Product!="DGP", MgClQuality:= QualityMgCl30]
+    molecular.data[Product=="DGP", MgClQuality:= QualityMgCl33]
+    molecular.data[Product=="FG0", SO4Quality:= QualitySO409]
+    molecular.data[Product=="FGC", SO4Quality:= QualitySO409]
+
     
     
     molecular.data$Product[!(molecular.data$Product %in% c("DGR", "DGP", "FG0", "FGC"))] <- "Unknown"
