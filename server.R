@@ -571,7 +571,7 @@ moleculeEstimate <- reactive({
 
     SO4 <- elemental.results[,"S.K.alpha"]*((fluorescence.lines["S", "AtomicWeight"]+fluorescence.lines["O", "AtomicWeight"]*4)/fluorescence.lines["S", "AtomicWeight"])
     
-    molecule.frame <- data.frame(MgCl, SO4)
+    molecule.frame <- data.frame(round(MgCl, 1), round(SO4, 2))
     colnames(molecule.frame) <- c("MgCl", "SO4")
     rownames(molecule.frame) <- elemental.results$Spectrum
     molecule.frame

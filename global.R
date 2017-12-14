@@ -18,6 +18,15 @@ options(digits=4)
 options(warn=-1)
 assign("last.warning", NULL, envir = baseenv())
 
+
+round_df <- function(df, digits) {
+    nums <- vapply(df, is.numeric, FUN.VALUE = logical(1))
+    
+    df[,nums] <- round(df[,nums], digits = digits)
+    
+    (df)
+}
+
 Hodder.v <- function(y)
 {
     
