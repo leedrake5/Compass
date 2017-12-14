@@ -1,18 +1,9 @@
 library(shiny)
-library(ggplot2)
 library(pbapply)
 library(reshape2)
 library(dplyr)
 library(data.table)
 library(DT)
-library(gridExtra)
-library(rhandsontable)
-library(Cairo)
-library(broom)
-library(shinyjs)
-library(formattable)
-library(markdown)
-library(rmarkdown)
 
 
 

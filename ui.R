@@ -3,9 +3,6 @@ library(DT)
 library(dplyr)
 library(shinythemes)
 library(data.table)
-library(dtplyr)
-library(rhandsontable)
-library(Cairo)
 
 
 
