@@ -384,8 +384,8 @@ shinyServer(function(input, output, session) {
             
 
             
-            if(is.na(valdata)==FALSE){predicted.vector <- unlist(predicted.list)}
-            
+            if(is.na(valdata)==FALSE){predicted.vector <- round(unlist(predicted.list), 4)}
+
             if(is.na(valdata)==FALSE){dim(predicted.vector) <- c(length(count.table$Spectrum), length(elements))}
             
             if(is.na(valdata)==FALSE){predicted.frame <- data.frame(count.table$Spectrum, predicted.vector)}
@@ -522,7 +522,7 @@ shinyServer(function(input, output, session) {
                 
            
            
-        if(is.na(valdata)==FALSE){predicted.vector <- unlist(predicted.list)}
+        if(is.na(valdata)==FALSE){predicted.vector <- round(unlist(predicted.list), 4)}
         
         if(is.na(valdata)==FALSE){dim(predicted.vector) <- c(length(count.table$Spectrum), length(elements))}
         
@@ -551,6 +551,7 @@ tableInputValQuant <- reactive({
     }else if(input$manualoverride==TRUE && input$whichinstrument=="T4S2481"){
         T4S2481InputValQuant()
     }
+    
     
     results$Spectrum <- gsub('.CSV','',results$Spectrum)
     results
