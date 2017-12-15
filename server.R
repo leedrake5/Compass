@@ -559,12 +559,19 @@ moleculeEstimate <- reactive({
     
     MgCl.fromMean <- rowMeans(data.frame(MgCl.fromMg, MgCl.fromCl))
     
-    MgCl <- elemental.results[,"Mg.K.alpha"] + elemental.results[,"Cl.K.alpha"]
+    MgCl.simp <- elemental.results[,"Mg.K.alpha"] + elemental.results[,"Cl.K.alpha"]
+    
+    MgCl <- (MgCl.fromMg + MgCl.fromCl + MgCl.simp)/3
 
     SO4 <- elemental.results[,"S.K.alpha"]*((fluorescence.lines["S", "AtomicWeight"]+fluorescence.lines["O", "AtomicWeight"]*4)/fluorescence.lines["S", "AtomicWeight"])
     
+    #molecule.frame <- data.frame(round(MgCl, 1), round(SO4, 2))
+    #colnames(molecule.frame) <- c("MgCl", "SO4")
+    
     molecule.frame <- data.frame(round(MgCl, 1), round(SO4, 2))
     colnames(molecule.frame) <- c("MgCl", "SO4")
+    
+    
     rownames(molecule.frame) <- elemental.results$Spectrum
     
     
@@ -633,11 +640,8 @@ contextQuality <- reactive({
     molecular.data$Product[molecular.data$Product=="DGR"] <- "Dust Guard"
     molecular.data$Product[molecular.data$Product=="DGP"] <- "Dust Guard Plus"
     
-    quality.data <- molecular.data[, c("Product", "MgClQuality", "SO4Quality", "MgCl", "SO4")]
+    molecular.data[, c("Spectrum", "Product", "MgClQuality", "SO4Quality", "MgCl", "SO4")]
     
-    quality.data
-    
- 
     
 })
 
@@ -813,10 +817,10 @@ qualityEstimate <- reactive({
         # valtest <- lapply(valelements, function(x) predict(calsList[[x]], as.data.frame(val.line.table[x])))
         
         output$downloadValData <- downloadHandler(
-        filename = function() { paste(input$projectname,'.xlsx', sep='', collapse='') },
+        filename = function() { paste(input$projectname,'.csv', sep='', collapse='') },
         content = function(file
         ) {
-            openxlsx::write.xlsx(resultList(), file=file, colWidths = c(NA, "auto", "auto"))
+            write.csv(qualityEstimate(), file=file)
         }
         )
         
