@@ -561,7 +561,11 @@ moleculeEstimate <- reactive({
     
     MgCl.simp <- elemental.results[,"Mg.K.alpha"] + elemental.results[,"Cl.K.alpha"]
     
-    MgCl <- (MgCl.fromMg + MgCl.fromCl + MgCl.simp)/3
+    MgCl <- if(input$traditionalmgcl==FALSE){
+        (MgCl.fromMg + MgCl.fromCl)/2
+    }else if(input$traditionalmgcl==TRUE){
+        MgCl.simp
+    }
 
     SO4 <- elemental.results[,"S.K.alpha"]*((fluorescence.lines["S", "AtomicWeight"]+fluorescence.lines["O", "AtomicWeight"]*4)/fluorescence.lines["S", "AtomicWeight"])
     

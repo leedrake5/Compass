@@ -29,7 +29,7 @@ accept=c('text/csv',
 '.csv')),
 
 tags$hr(),
-
+checkboxInput('traditionalmgcl', "Alternative MgCl Calculation", value=FALSE),
 checkboxInput('manualoverride', "Manually Choose Calibration", value=FALSE),
 uiOutput('selectcal'),
 checkboxInput('manualproduct', "Manually Choose Product", value=FALSE),
