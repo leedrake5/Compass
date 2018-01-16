@@ -29,7 +29,7 @@ accept=c('text/csv',
 '.csv')),
 
 tags$hr(),
-checkboxInput('traditionalmgcl', "Alternative MgCl Calculation", value=FALSE),
+selectInput('traditionalmgcl', "Alternative MgCl Calculation", choices=c("Calculated", "Traditional", "All Methods Averaged"), selected="Calculated"),
 checkboxInput('manualoverride', "Manually Choose Calibration", value=FALSE),
 uiOutput('selectcal'),
 checkboxInput('manualproduct', "Manually Choose Product", value=FALSE),
