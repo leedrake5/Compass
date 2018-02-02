@@ -29,9 +29,15 @@ accept=c('text/csv',
 '.csv')),
 
 tags$hr(),
-selectInput('traditionalmgcl', "Alternative MgCl Calculation", choices=c("Calculated", "Traditional", "All Methods Averaged"), selected="Traditional"),
-numericInput('adjust', "Adjust MgCL", value=0),
-sliderInput('percentadjust', label=NULL, min=0.5, max=2, value=1, step=0.01),
+uiOutput('uitraditionalmgcl'),
+
+uiOutput('uiadjustmgcl'),
+uiOutput('uipercentadjustmgcl'),
+uiOutput('uiadjustso4'),
+uiOutput('uipercentadjustso4'),
+
+
+checkboxInput('advancedadjust', "Manually Adjust Values", value=FALSE),
 checkboxInput('manualoverride', "Manually Choose Calibration", value=FALSE),
 uiOutput('selectcal'),
 checkboxInput('manualproduct', "Manually Choose Product", value=FALSE),

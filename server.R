@@ -37,6 +37,51 @@ shinyServer(function(input, output, session) {
     })
     
     
+    output$uiadjustmgcl <- renderUI({
+        
+        if(input$advancedadjust==TRUE){
+            numericInput('adjustmgcl', "Adjust MgCL", value=0)
+        } else {
+            p()
+        }
+        
+    })
+    
+    output$uipercentadjustmgcl <- renderUI({
+        
+        if(input$advancedadjust==TRUE){
+            sliderInput('percentadjustmgcl', label=NULL, min=0.5, max=2, value=1, step=0.01)
+        } else {
+            p()
+        }
+        
+    })
+    
+    
+    output$uiadjustso4 <- renderUI({
+        
+        if(input$advancedadjust==TRUE){
+            numericInput('adjustso4', "Adjust SO4", value=0)
+        } else {
+            p()
+        }
+        
+    })
+    
+    
+    output$uipercentadjustso4 <- renderUI({
+        
+        if(input$advancedadjust==TRUE){
+            sliderInput('percentadjustso4', label=NULL, min=0.5, max=2, value=1, step=0.01)
+        } else {
+            p()
+        }
+        
+    })
+    
+
+    
+    
     output$nameproduct <- renderUI({
         
         if(input$manualproduct==TRUE && input$whichproduct=="Other"){
@@ -67,6 +112,66 @@ shinyServer(function(input, output, session) {
         }
         
     })
+    
+    
+    output$uitraditionalmgcl <- renderUI({
+        
+        if(input$advancedadjust==TRUE){
+            selectInput('traditionalmgcl', "Alternative MgCl Calculation", choices=c("Calculated", "Traditional", "All Methods Averaged"), selected="Traditional")
+        } else {
+            p()
+        }
+        
+    })
+    
+    
+    MgClTrad <- reactive({
+        
+        if(input$advancedadjust==TRUE){
+            input$traditionalmgcl
+        } else {
+            "Traditional"
+        }
+    })
+    
+    MgClAdjust <- reactive({
+        
+        if(input$advancedadjust==TRUE){
+            input$adjustmgcl
+        } else {
+            0
+        }
+    })
+    
+    MgClPAdjust <- reactive({
+        
+        if(input$advancedadjust==TRUE){
+            input$percentadjustmgcl
+        } else {
+            1
+        }
+    })
+    
+    
+    SO4Adjust <- reactive({
+        
+        if(input$advancedadjust==TRUE){
+            input$adjustso4
+        } else {
+            0
+        }
+    })
+    
+    SO4PAdjust <- reactive({
+        
+        if(input$advancedadjust==TRUE){
+            input$percentadjustso4
+        } else {
+            1
+        }
+    })
+    
+
     
     
     
@@ -561,18 +666,21 @@ moleculeEstimate <- reactive({
     
     MgCl.simp <- elemental.results[,"Mg.K.alpha"] + elemental.results[,"Cl.K.alpha"]
     
-    MgCl <- if(input$traditionalmgcl=="Calculated"){
+    MgCl <- if(MgClTrad()=="Calculated"){
         (MgCl.fromMg + MgCl.fromCl)/2
-    } else if(input$traditionalmgcl=="Traditional"){
+    } else if(MgClTrad()=="Traditional"){
         MgCl.simp
-    } else if(input$traditionalmgcl=="All Methods Averaged"){
+    } else if(MgClTrad()=="All Methods Averaged"){
         (((MgCl.fromMg + MgCl.fromCl)/2)+MgCl.simp)/2
     }
     
-    MgCl <- MgCl + input$adjust
-    MgCl <- MgCl*input$percentadjust
+    MgCl <- MgCl + MgClAdjust()
+    MgCl <- MgCl*MgClPAdjust()
 
     SO4 <- elemental.results[,"S.K.alpha"]*((fluorescence.lines["S", "AtomicWeight"]+fluorescence.lines["O", "AtomicWeight"]*4)/fluorescence.lines["S", "AtomicWeight"])
+    
+    SO4 <- SO4 + SO4Adjust()
+    SO4 <- SO4*SO4PAdjust()
     
     #molecule.frame <- data.frame(round(MgCl, 1), round(SO4, 2))
     #colnames(molecule.frame) <- c("MgCl", "SO4")

@@ -1,3 +1,6 @@
+table(x %in% y)["TRUE"][,1]
+table(x %in% y)["TRUE"][1,]
+table(x %in% y)[,"TRUE"][1,]
 table(x %in% y)[,"TRUE"]
 table(x %in% y)[,2]
 as.data.frame(table(x %in% y))[,2]
@@ -276,7 +279,4 @@ shiny::runApp('/Users/lee/GitHub/CloudCal', launch.browser=TRUE)
 ?as.vector
 shiny::runApp('/Users/lee/GitHub/CloudCal', launch.browser=TRUE)
 shiny::runApp('/Users/lee/GitHub/CloudCal', launch.browser=TRUE)
-shiny::runApp("~/GitHub/Compass")
-?sliderInput
-?sliderInput
-shiny::runApp("~/GitHub/Compass")
+shiny::runApp('/Users/lee/GitHub/Compass', launch.browser=TRUE)
