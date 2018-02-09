@@ -15,6 +15,9 @@ assign("last.warning", NULL, envir = baseenv())
 
 shinyServer(function(input, output, session) {
     
+    memory <- read.csv(file="data/memory.csv")
+
+    
     output$selectcal <- renderUI({
         
         if(input$manualoverride==TRUE){
@@ -52,25 +55,147 @@ shinyServer(function(input, output, session) {
     })
     
     
+
+    
     output$mgclmanual <- renderUI({
         
-        if(input$manualproduct==TRUE && input$whichproduct=="Other"){
             numericInput('mgclmin', "MgCl Minimum", value=30)
-        } else {
-            p()
-        }
+
         
     })
     
     output$so4manual <- renderUI({
         
-        if(input$manualproduct==TRUE && input$whichproduct=="Other"){
             numericInput('so4max', "SO4 Max", value=0.9)
-        } else {
-            p()
-        }
+
         
     })
+    
+    output$uiadjustmgcl <- renderUI({
+        
+        numericInput('adjustmgcl', label=NULL, value=as.numeric(memory$adjustmgcl))
+        
+    })
+    
+    output$uipercentadjustmgcl <- renderUI({
+        
+        sliderInput('percentadjustmgcl', label=NULL, min=0.5, max=2, value=as.numeric(memory$percentadjustmgcl), step=0.01)
+        
+    })
+    
+    
+    output$uiadjustso4 <- renderUI({
+        
+        numericInput('adjustso4', "Adjust SO4", value=as.numeric(memory$adjustso4))
+        
+    })
+    
+    
+    output$uipercentadjustso4 <- renderUI({
+        
+        sliderInput('percentadjustso4', label=NULL, min=0.5, max=2, value=as.numeric(memory$percentadjustso4), step=0.01)
+        
+    })
+    
+    
+    output$uitraditionalmgcl <- renderUI({
+        
+        selectInput('traditionalmgcl', "Adjust MgCL", choices=c("Calculated", "Traditional", "All Methods Averaged"), selected=as.character(memory$traditionalmgcl))
+
+        
+    })
+    
+
+
+
+    
+    
+    
+    memoryCurrent <- reactiveValues()
+    
+    
+    observeEvent(!is.null(input$loadvaldata), {
+        
+        memoryCurrent <<- memory
+
+    })
+    
+    
+    
+    
+    observeEvent(input$savedefaults, {
+        
+        memory.table <- data.frame(
+        traditionalmgcl=input$traditionalmgcl,
+        adjustmgcl=input$adjustmgcl,
+        percentadjustmgcl=input$percentadjustmgcl,
+        adjustso4=input$adjustso4,
+        percentadjustso4=input$percentadjustso4
+        )
+        
+        write.csv(memory.table, file="data/memory.csv")
+        memoryCurrent <<- memory.table
+
+        
+    })
+    
+    observeEvent(input$restoredefaults, {
+        
+        memoryCurrent <<- read.csv(file="data/memory.csv")
+
+    })
+    
+    
+    observeEvent(input$resetdefaults, {
+        
+        memory.table <- data.frame(
+        traditionalmgcl="Traditional",
+        adjustmgcl=0,
+        percentadjustmgcl=1,
+        adjustso4=0,
+        percentadjustso4=1
+        )
+        
+        #write.csv(memory.table, file="data/memory.csv")
+        memoryCurrent <<- memory.table
+
+    })
+    
+    
+    
+    
+    
+    observeEvent(input$restoredefaults, {
+        
+        updateNumericInput(session, 'adjustmgcl', label=NULL, value=as.numeric(memoryCurrent$adjustmgcl))
+        
+        updateSliderInput(session, 'percentadjustmgcl', label=NULL, min=0.5, max=2, value=as.numeric(memoryCurrent$percentadjustmgcl), step=0.01)
+        
+        updateNumericInput(session, 'adjustso4', "Adjust SO4", value=as.numeric(memoryCurrent$adjustso4))
+
+        updateSliderInput(session, 'percentadjustso4', label=NULL, min=0.5, max=2, value=as.numeric(memoryCurrent$percentadjustso4), step=0.01)
+        
+        updateSelectInput(session, 'traditionalmgcl', "Adjust MgCL", choices=c("Calculated", "Traditional", "All Methods Averaged"), selected=as.character(memoryCurrent$traditionalmgcl))
+
+
+    })
+    
+    
+    observeEvent(input$resetdefaults, {
+        
+        updateNumericInput(session, 'adjustmgcl', label=NULL, value=as.numeric(memoryCurrent$adjustmgcl))
+        
+        updateSliderInput(session, 'percentadjustmgcl', label=NULL, min=0.5, max=2, value=as.numeric(memoryCurrent$percentadjustmgcl), step=0.01)
+        
+        updateNumericInput(session, 'adjustso4', "Adjust SO4", value=as.numeric(memoryCurrent$adjustso4))
+        
+        updateSliderInput(session, 'percentadjustso4', label=NULL, min=0.5, max=2, value=as.numeric(memoryCurrent$percentadjustso4), step=0.01)
+        
+        updateSelectInput(session, 'traditionalmgcl', "Adjust MgCL", choices=c("Calculated", "Traditional", "All Methods Averaged"), selected=as.character(memoryCurrent$traditionalmgcl))
+        
+        
+    })
+
     
     
 
@@ -78,32 +203,55 @@ shinyServer(function(input, output, session) {
     
     MgClTrad <- reactive({
         
+        if(is.null(input$traditionalmgcl)){
+            as.character(memory[["Traditional"]])
+        } else if(!is.null(input$traditionalmgcl)){
             input$traditionalmgcl
+        }
 
     })
     
     MgClAdjust <- reactive({
         
+        if(is.null(input$adjustmgcl)){
+            as.numeric(memory[["adjustmgcl"]])
+        } else if(!is.null(input$adjustmgcl)){
             input$adjustmgcl
-
+        }
+        
     })
     
     MgClPAdjust <- reactive({
         
+        
+        if(is.null(input$percentadjustmgcl)){
+            as.numeric(memory[["percentadjustmgcl"]])
+        } else if(!is.null(input$percentadjustmgcl)){
             input$percentadjustmgcl
-
+        }
+        
     })
     
     
     SO4Adjust <- reactive({
         
-            input$adjustso4
+            if(is.null(input$adjustso4)){
+                as.numeric(memory[["adjustso4"]])
+            } else if(!is.null(input$adjustso4)){
+                input$adjustso4
+            }
 
     })
     
     SO4PAdjust <- reactive({
         
+        
+        if(is.null(input$percentadjustso4)){
+            as.numeric(memory[["percentadjustso4"]])
+        } else if(!is.null(input$percentadjustso4)){
             input$percentadjustso4
+        }
+        
 
     })
     

@@ -321,6 +321,8 @@ l.lines <- read.csv(file="data/L Line-Table 1.csv", sep=",")
 fluorescence.lines <- read.csv("data/FluorescenceLines.csv")
 rownames(fluorescence.lines) <- fluorescence.lines$Symbol
 
+memory <- read.csv(file="data/memory.csv")
+
 
 #k.lines[k.lines < 0.01] <- 1
 #l.lines[l.lines < 0.01] <- 1

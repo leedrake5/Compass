@@ -1,282 +1,583 @@
-table(x %in% y)["TRUE"][,1]
-table(x %in% y)["TRUE"][1,]
-table(x %in% y)[,"TRUE"][1,]
-table(x %in% y)[,"TRUE"]
-table(x %in% y)[,2]
-as.data.frame(table(x %in% y))[,2]
-as.data.frame(table(x %in% y))[1,2]
-as.data.frame(table(x %in% y))[1,1]
-as.data.frame(table(x %in% y))[2,1]
-as.data.frame(table(x %in% y))[2,2]
-?renderText
-library(shiny)
-?renderText
-?tagList
-cal <- readRDS("~/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/ICRAF 5i 900F4352 Cal/R Cals/900F4352ManureTrace.quant")
-ca.frame <- cal[["Intensities"]]
-cal.frame <- cal[["Intensities"]]
-total.number <- length(cal.frame[,1])
-total.number
-sample.number <- total.number-round(.2*total.number, 0)
-sample.number
-hold <- cal.frame[sample(nrow(cal.frame), sample.number),]
-length(hold[,1])
-rownames(hold) %in% rownames(cal.frame)
-as.data.frame(table(rownames(hold) %in% rownames(cal.frame)))[2,2]
-total.number <- length(cal.frame[,1])#
-    sample.number <- total.number-round(input$percentrandom*total.number, 0)#
-    hold <- cal.frame[sample(nrow(cal.frame), sample.number),]#
-    hold$Spectrum %in% cal.frame$Specrum
-sample.number <- total.number-round(.2*total.number, 0)
-hold <- cal.frame[sample(nrow(cal.frame), sample.number),]#
-    hold$Spectrum %in% cal.frame$Specrum
-length(hold[,1])
-ls(hold)
-cal.frame <- cal[["Values"]]
-total.number <- length(cal.frame[,1])
-hold <- cal.frame[sample(nrow(cal.frame), sample.number),]#
-    hold$Spectrum %in% cal.frame$Specrum
-ls(cal.frame)
-head(cal.frame$Spectrum)
-head(hold$Spectrum)
-match(hold$Spectrum, cal.frame$Spectrum)
-cal.frame$Spectrum[match(hold$Spectrum)]
-cal.frame$Spectrum %in% hold$Specrum
-cal.frame$Spectrum %in% hold$Spectrum
-test <- cal.frame$Spectrum %in% hold$Spectrum
-as.data.frame(table(test))[2,2]
-?rHandsontableOutput
-??rHandsontableOutput
-?rhandsontable
-??rhandsontable
-update.packages()
-set.seed(seed)
-random()
-rsconnect::deployApp("~/GitHub/cloudCal", appName="cloudCal")
-x <- c(TRUE, TRUE ,TRUE)
-y <- c(FALSE, TRUE TRUE)
-y <- c(FALSE, TRUE, TRUE)
-any(x, y)
-sapply(x, function(x) any(x, y))
-sapply(y, function(x) any(x, x))
-x <- c(TRUE, TRUE, FALSE)
-sapply(y, function(x) any(x, x))
-any(TRUE, FALSE)
-which(TRUE, FALSE)
-x | y
-x $ y
-x & y
-x <- c(TRUE, TRUE, TRUE)
-x & y
-runApp("~/Desktop/CloudCal-cd4e67eece89bac3f9963f30dd0ebbad96219d0a")
-shiny::runApp("~/Desktop/CloudCal-cd4e67eece89bac3f9963f30dd0ebbad96219d0a")
-update.packages()
-shiny::runGitHub("leedrake5/CloudCalTemp")
-shiny::runApp('/Users/lee/GitHub/CloudCal', launch.browser=TRUE)
-?predict
-shiny::runApp('/Users/lee/GitHub/CloudCal', launch.browser=TRUE)
-test <- readRDS("~/Desktop/myCalibration-10.quant")
-str(test)
-colnames(test$Values[,1]
-)
-head(test$Values[,1])
-shiny::runApp('/Users/lee/GitHub/CloudCal', launch.browser=TRUE)
-shiny::runGitHub("leedrake5/CloudCal")
-shiny::runApp('/Users/lee/GitHub/CloudCal', launch.browser=TRUE)
-rsconnect::deployApp("~/GitHub/CloudCal", appName="CloudCal")
-shiny::runApp('/Users/lee/GitHub/CloudCal', launch.browser=TRUE)
-shiny::runApp("~/GitHub/obsidianSource")
-shiny::runApp("~/GitHub/cloudCal")
-install.packages(c("caTools", "RWeka", "rpart", "mda", "gbm"))
-install.packages("tidyverse")
-install.packages("pROC")
-install.packages(c("blackboost", "C50", "ada"))
-install.packages("mboost")
-install.packages(c("e1071", "klaR", "svmpath", 'kernlab'))
-install.packages("foreach")
-install.packages("doSomething")
-install.packages(c("doMC", "doMPI", "doSMP"))
-install.packages(c('pcaPP", "pls", "sparseLDA'))
-install.packages(c("pcaPP", "pls", "sparseLDA"))
-update.packages()
-shiny::runApp('/Users/lee/GitHub/CloudCal', launch.browser=TRUE)
-?cor
-shiny::runApp('/Users/lee/GitHub/CloudCal', launch.browser=TRUE)
-?cor
-shiny::runApp('/Users/lee/GitHub/CloudCal', launch.browser=TRUE)
-log10(1)
-log10(0)
-update.packages()
-shiny::runApp('/Users/lee/GitHub/CloudCal', launch.browser=TRUE)
-rsconnect::deployApp("~/GitHub/CloudCal", appName="cloudCal")
-rsconnect::deployApp("~/GitHub/CloudCal", appName="CloudCal")
-my.file <- file('/Users/lee/Desktop/v25.pdz', 'rb')
-head(my.file)
-my.file
-v25path <- "/Users/lee/Desktop/v25.pdz"
-id <- integer(0)#
-response <- character(0)#
-id = c(id, readBin(my.file, character(), n=6, size = 10, endian = 'little', signed=FALSE))#
-response = c(response, readChar(my.file, 1))
-response
-id
-fileSize <- file.info("/Users/lee/Desktop/v25.pdz")$size
-fileSize
-raw <- readBin("/Users/lee/Desktop/v25.pdz", what="raw", n=fileSize)
-raw
-nbrOfRecords <- length(raw) %/% 4
-dim(raw) <- c(4, nbrOfRecords)
-raw
-t.raw <- t(raw)
-ints <- readBin(con=raw[1:4,], what="integer", size=4, n=nbrOfRecords, endian="little")
-floats <- readBin(con=raw[5:6,], what="double", size=4, n=nbrOfRecords, endian="little")
-ints
-raw
-raw <- readBin("/Users/lee/Desktop/v25.pdz", what="raw", n=fileSize)
-raw
-head(ints)
-?readbin
 ?readBin
-update.packages()
-shiny::runApp("~/GitHub/cloudCal")
-Manure.Trace.list <- lapply(c("/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/ICRAF 5i 900F4352 Cal/R Cals/900F4352ManureTrace.quant", "/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/ICRAF 5i 900F4473 Cal/R Cals/900F4473ManureTrace.quant", "/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/ICRAF 5i 900F4504 Cal/R Cals/900F4504ManureTrace.quant", "/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/Rothamstead 5i 900F4166/R Cals/900F4166ManureTrace.quant"), readRDS)
-length(Manure.Trace.list)
-names(ManureTrace.list)
-names(Manure.Trace.list)
-names(Manure.Trace.list) <- c("900F4352", "900F4473", "900F4504", "900F4166))
-)
-names(Manure.Trace.list) <- c("900F4352", "900F4473", "900F4504", "900F4166")
-names(Manure.Trace.list)
-ls(F4166ManureTrace)
-###900F4352#
-F4352ManureLight <- readRDS("/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/ICRAF 5i 900F4352 Cal/R Cals/900F4352ManureLight.quant")#
-F4352ManureTrace <- readRDS("/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/ICRAF 5i 900F4352 Cal/R Cals/900F4352ManureTrace.quant")#
-###900F4473#
-F4473ManureLight <- readRDS("/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/ICRAF 5i 900F4473 Cal/R Cals/900F4473ManureLight.quant")#
-F4473ManureTrace <- readRDS("/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/ICRAF 5i 900F4473 Cal/R Cals/900F4473ManureTrace.quant")#
-###900F4504#
-F4504ManureLight <- readRDS("/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/ICRAF 5i 900F4504 Cal/R Cals/900F4504ManureLight.quant")#
-F4504ManureTrace <- readRDS("/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/ICRAF 5i 900F4504 Cal/R Cals/900F4504ManureTrace.quant")#
-###900F4166#
-F4166ManureLight <- readRDS("/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/Rothamstead 5i 900F4166/R Cals/900F4166ManureLight.quant")#
-F4166ManureTrace <- readRDS("/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/Rothamstead 5i 900F4166/R Cals/900F4166ManureTrace.quant")
-ls(F4166ManureTrace)
-ManureTraceIntensitiesList <- lapply(Manure.Trace.list, "[[", "Intensities")
-ManureTraceIntensitiesList[[1]]
-intensities.list <- ManureTraceIntensitiesList
-cal.names <- names(Manure.Trace.list)
-cal.names
-names(intensities.list) <- cal.names
-intensities.list <- mapply(cbind, intensities.list, Instrument=cal.names, SIMPLIFY=FALSE)
-head(intensities.list[[1]])
-head(intensities.list[[2]])
-test <- do.call(intensities.list, rbind)
-test <- do.call(intensities.list, "rbind")
-test <- do.call("rbind", intensities.list)
-lenth(test[,1])
-test
-ls(F4166ManureTrace)
-filetype.list <- lapply(Manure.Trace.list, "[[", "FileType")
-filetype.list
-unique(filetype.list)
-filetype.list <- sapply(Manure.Trace.list, "[[", "FileType")
-filetype.lsit
-filetype.list
-unique(filetype.list)
-update.packages()
-###900F4352#
-F4352ManureLight <- readRDS("/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/ICRAF 5i 900F4352 Cal/R Cals/900F4352ManureLight.quant")#
-F4352ManureTrace <- readRDS("/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/ICRAF 5i 900F4352 Cal/R Cals/900F4352ManureTrace.quant")#
-###900F4473#
-F4473ManureLight <- readRDS("/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/ICRAF 5i 900F4473 Cal/R Cals/900F4473ManureLight.quant")#
-F4473ManureTrace <- readRDS("/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/ICRAF 5i 900F4473 Cal/R Cals/900F4473ManureTrace.quant")#
-###900F4504#
-F4504ManureLight <- readRDS("/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/ICRAF 5i 900F4504 Cal/R Cals/900F4504ManureLight.quant")#
-F4504ManureTrace <- readRDS("/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/ICRAF 5i 900F4504 Cal/R Cals/900F4504ManureTrace.quant")#
-###900F4166#
-F4166ManureLight <- readRDS("/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/Rothamstead 5i 900F4166/R Cals/900F4166ManureLight.quant")#
-F4166ManureTrace <- readRDS("/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/Rothamstead 5i 900F4166/R Cals/900F4166ManureTrace.quant")
-Manure.Trace.list <- lapply(c("/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/ICRAF 5i 900F4352 Cal/R Cals/900F4352ManureTrace.quant", "/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/ICRAF 5i 900F4473 Cal/R Cals/900F4473ManureTrace.quant", "/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/ICRAF 5i 900F4504 Cal/R Cals/900F4504ManureTrace.quant", "/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/Rothamstead 5i 900F4166/R Cals/900F4166ManureTrace.quant"), readRDS)#
+floats <- readBin(con=raw, what="float", size=4, n=nbrOfRecords, endian="big")
+head(floats)
+floats[1:20]
+library(ggplot2)
+raw <- "/Users/lee/Desktop/02359-Soil Trace.pdz"#
 #
-names(Manure.Trace.list) <- c("900F4352", "900F4473", "900F4504", "900F4166")
-ls(F4166ManureTrace)
-test <-  readRDS("/Users/lee/Dropbox/Documents/ICRAF/2017\ Data/New\ ICRAF\ Tracer\ 5i\ Cals\ Final/ICRAF\ 5i\ 900F4473\ Cal/R\ Cals/900F4473ManureTrace.quant")
-ls(test$calList[[1]])
-ls(test[[]]
-)
-ls(test[["calList"]])
-ls(test[["calList"]][[1]])
-ls(test[["calList"]][["As.K.alpha"]])
-ls(test[["calList"]][[1]][["As.K.alpha"]])
-names(test[["calList"]])
-names(test[["calList"]][[1]])
-names(test[["calList"]][["Zn.K.alpha"]])
-ls(test[["calList"]][["Zn.K.alpha"]])
-test[["calList"]][["Zn.K.alpha"]]
-test[["calList"]][["Zn.K.alpha"]][[1]][["StandardsUsed"]]
-cal.list <- test[["calList"]]
-element.cal.list <- lapply(cal.list, "[[", "Zn.K.alpha")
-element.cal.meta <- lapply(element.cal.list, "[[", 1])
-element.cal.meta <- lapply(element.cal.list, "[[", "1"])
-element.cal.list[[1]]
-length(element.cal.list)
-cal.list <- lapply(Manure.Trace.list, "[[", "calList")
-element.cal.list <- lapply(cal.list, "[[", "Zn.K.alpha")
-length(element.cal.list)
-element.cal.meta <- lapply(element.cal.list, "[[", 1])
-element.cal.meta <- lapply(element.cal.list, "[[", "1"])
-element.cal.meta <- lapply(element.cal.list, "[[")
-element.cal.list
-standards.vector <- sapply(element.cal.list,  [[1]][["StandardsUsed"]])
-element.cal.meta <- lapply(element.cal.list, "[[", 1)
-standards.vector <- sapply(element.cal.meta, "[[", [[1]][["StandardsUsed"]])
-standards.vector <- sapply(element.cal.meta, "[[", "StandardsUsed")
-standards.vector
-standards.vector <- as.vector(unlist(lapply(element.cal.meta, "[[", "StandardsUsed")))
-standards.vector
+#fileSize <- file.info("/Users/lee/Desktop/02198-Soil Light.pdz")$size#
+#nbrOfRecords <- length(raw) %/% 5#
+#dim(raw) <- c(4, nbrOfRecords)#
+#t.raw <- t(raw)#
+nbrOfRecords <- 10000#
+integers <- readBin(con=raw, what="integer", size=4, n=nbrOfRecords, endian="little")#
+floats <- readBin(con=raw, what="float", size=4, n=nbrOfRecords, endian="little")#
+numbers <- readBin(con=raw, what="numeric", size=4, n=nbrOfRecords, endian="little")#
+doubles <- readBin(con=raw, what="double", size=4, n=nbrOfRecords, endian="little")#
+ints <- readBin(con=raw, what="int", size=4, n=nbrOfRecords, endian="little")#
+logicals <- readBin(con=raw, what="logical", size=4, n=nbrOfRecords, endian="little")#
+complexes <- readBin(con=raw, what="complex",  n=nbrOfRecords, endian="little")#
+characters <- readBin(con=raw, what="character", size=4, n=nbrOfRecords, endian="little")#
+raws <- readBin(con=raw, what="raw", size=1, n=nbrOfRecords, endian="little")#
+sequence <- seq(1, length(ints), 1)#
+#
+test.frame <- data.frame(Sequence=sequence, Maybe=integers)#
+test <- ggplot(test.frame, aes((Sequence-124)*.02, Maybe/1000)) + geom_line() + scale_x_continuous(limits = c(0, 2048)*.02) + scale_y_continuous(limits=c(0, 150)) + geom_vline(xintercept=6.40, lty=2) + geom_vline(xintercept=20.22, lty=2)#
+test
+head(integers[1:200])
+integers[1:200]
 shiny::runApp('/Users/lee/GitHub/CloudCal', launch.browser=TRUE)
-?split
+124 + 2048
 shiny::runApp('/Users/lee/GitHub/CloudCal', launch.browser=TRUE)
-?seq
+x <- c("a", "c", "d")
+y <- c("e", "d", "c", "b", "a")
+match(x, y)
+x[match(x, y)]
+y[match(x, y)]
 shiny::runApp('/Users/lee/GitHub/CloudCal', launch.browser=TRUE)
-?data.frame
-x <- c(1, 2, 3)
-y <- c(3, 4, 5)
-data.frame(bob=x, bill=y)
+origional <- c("As", "Ba", "Ca")
+should <- c("Ca", "As", "Ba")
+should[match(origional %in% should)]
+should[match(origional, should)]
+origional[match(origional, should)]
+origional[match(should, origional)]
+shiny::runApp('/Users/lee/GitHub/CloudCal', launch.browser=TRUE)
+fluorescence.lines <- read.csv(file="~/GitHub/CloudCal/data/FluorescenceLines.csv")
+fluorescence.lines$Symbol
+as.character(fluorescence.lines$Symbol)
+shiny::runApp('/Users/lee/GitHub/CloudCal', launch.browser=TRUE)
+test <- c("As.K.alpha", "Ba.L.alpha", "Ca.K.alpha")
+origional <- c("As", "Ba", "Ca")
+should <- c("Ca", "As", "Ba")
+test[match(should, origional)]
+should <- c("Si", "Ca", "As", "Ba")
+test[match(should, origional)]
+na.omit(test[match(should, origional)])
+as.character(na.omit(test[match(should, origional)]))
 shiny::runApp('/Users/lee/GitHub/CloudCal', launch.browser=TRUE)
 update.packages()
-Manure.Trace.list <- lapply(c("/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/ICRAF 5i 900F4352 Cal/R Cals/900F4352ManureTrace.quant", "/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/ICRAF 5i 900F4473 Cal/R Cals/900F4473ManureTrace.quant", "/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/ICRAF 5i 900F4504 Cal/R Cals/900F4504ManureTrace.quant", "/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/Rothamstead 5i 900F4166/R Cals/900F4166ManureTrace.quant"), readRDS)
-names(Manure.Trace.list) <- c("900F4352", "900F4473", "900F4504", "900F4166")
-ManureCalList <- lapply(Manure.Trace.list, "[[", "calList")
-names(ManureCalList) <- c("900F4352", "900F4473", "900F4504", "900F4166")
-element.names <- ls(ManureCalList[[1]])
-element.names
-element.cal.list <- lapply(ManureCalList, "[[", element.names)
-element.cal.list <- lapply(cal.list, "[[", "K.K.alpha")
-element.cal.meta <- as.vector(unlist(lapply(element.cal.list, "[[", "K.K.alpha")))
-element.cal.meta <- as.vector(unlist(lapply(ManureCalList, "[[", "K.K.alpha")))
-head(element.cal.meta[[1]])
-element.cal.meta2 <- as.vector(unlist(lapply(element.cal.meta, "[[", 1)))
-head(element.cal.meta2[[1]])
-element.cal.meta[[1]
-]
-head(ManureCalList[[1]])
-element.cal.meta <- lapply(ManureCalList, "[[", "K.K.alpha")
-length(element.cal.meta)
-element.cal.meta[[1]]
-element.cal.meta2 <- lapply(element.cal.meta, "[[", 1)
-element.cal.meta2[[1]]
-element.cal.meta3 <- as.vector(lapply(element.cal.meta, "[[", "StandardsUsed"))
-element.cal.meta3
-element.cal.meta3 <- as.vector(lapply(element.cal.meta2, "[[", "StandardsUsed"))
-element.cal.meta3[[1]]
+raw <- "/Users/lee/Desktop/Soil_Trace.pdz"#
+#
+#fileSize <- file.info("/Users/lee/Desktop/02198-Soil Light.pdz")$size#
+#nbrOfRecords <- length(raw) %/% 5#
+#dim(raw) <- c(4, nbrOfRecords)#
+#t.raw <- t(raw)#
+nbrOfRecords <- 10000#
+integers <- readBin(con=raw, what="integer", size=4, n=nbrOfRecords, endian="little")#
+floats <- readBin(con=raw, what="float",  n=nbrOfRecords, endian="little")
+flots[1:20]
+floats[1:20]
+floats <- readBin(con=raw, what="float",  n=nbrOfRecords)
+floats[1:20]
+raw <- "/Users/lee/Desktop/Soil_Trace.pdz"#
+#
+#fileSize <- file.info("/Users/lee/Desktop/02198-Soil Light.pdz")$size#
+#nbrOfRecords <- length(raw) %/% 5#
+#dim(raw) <- c(4, nbrOfRecords)#
+#t.raw <- t(raw)#
+nbrOfRecords <- 10000#
+integers <- readBin(con=raw, what="integer", size=4, n=nbrOfRecords, endian="little")#
+floats <- readBin(con=raw, what="float",  n=nbrOfRecords, endian="little")
+doubles <- readBin(con=raw, what="double", size=4, n=nbrOfRecords, endian="little")
+doubles[1:20]
+characters <- readBin(con=raw, what="character", size=4, n=nbrOfRecords, endian="little")
+characters[1:20]
+ints <- readBin(con=raw, what="int", size=4, n=nbrOfRecords, endian="little")
+ints[1:20]
+ints
+integers
+sequence <- seq(1, length(ints), 1)
+library(ggplot2)
+test <- ggplot(test.frame, aes((Sequence-124)*.02, Maybe/1000)) + geom_line() + scale_x_continuous(limits = c(0, 2048)*.02) + scale_y_continuous(limits=c(0, 150)) + geom_vline(xintercept=6.40, lty=2) + geom_vline(xintercept=20.22, lty=2)#
+test
+test.frame <- data.frame(Sequence=sequence, Maybe=integers)
+test <- ggplot(test.frame, aes((Sequence-124)*.02, Maybe/1000)) + geom_line() + scale_x_continuous(limits = c(0, 2048)*.02) + scale_y_continuous(limits=c(0, 150)) + geom_vline(xintercept=6.40, lty=2) + geom_vline(xintercept=20.22, lty=2)#
+test
+test <- ggplot(test.frame, aes((Sequence-124)*.02, Maybe/1000)) + geom_line() + scale_x_continuous(limits = c(0, 2048)*.02) + scale_y_continuous(limits=c(0, 1000)) + geom_vline(xintercept=6.40, lty=2) + geom_vline(xintercept=20.22, lty=2)#
+test
+test <- ggplot(test.frame, aes((Sequence-124)*.02, Maybe/1000)) + geom_line() + scale_x_continuous(limits = c(0, 2048)*.02) + scale_y_continuous(limits=c(0, 10000)) + geom_vline(xintercept=6.40, lty=2) + geom_vline(xintercept=20.22, lty=2)#
+test
+test <- ggplot(test.frame, aes((Sequence-124)*.02, Maybe/1000)) + geom_line() + scale_x_continuous(limits = c(0, 2048)*.02) + scale_y_continuous(limits=c(0, 1000000)) + geom_vline(xintercept=6.40, lty=2) + geom_vline(xintercept=20.22, lty=2)#
+test
+test <- ggplot(test.frame, aes((Sequence-100)*.02, Maybe/1000)) + geom_line() + scale_x_continuous(limits = c(0, 2048)*.02) + scale_y_continuous(limits=c(0, 1000000)) + geom_vline(xintercept=6.40, lty=2) + geom_vline(xintercept=20.22, lty=2)#
+test
+test <- ggplot(test.frame, aes((Sequence-50)*.02, Maybe/1000)) + geom_line() + scale_x_continuous(limits = c(0, 2048)*.02) + scale_y_continuous(limits=c(0, 1000000)) + geom_vline(xintercept=6.40, lty=2) + geom_vline(xintercept=20.22, lty=2)#
+test
+test <- ggplot(test.frame, aes((Sequence-75)*.02, Maybe/1000)) + geom_line() + scale_x_continuous(limits = c(0, 2048)*.02) + scale_y_continuous(limits=c(0, 1000000)) + geom_vline(xintercept=6.40, lty=2) + geom_vline(xintercept=20.22, lty=2)#
+test
+test <- ggplot(test.frame, aes((Sequence-85)*.02, Maybe/1000)) + geom_line() + scale_x_continuous(limits = c(0, 2048)*.02) + scale_y_continuous(limits=c(0, 1000000)) + geom_vline(xintercept=6.40, lty=2) + geom_vline(xintercept=20.22, lty=2)#
+test
+test <- ggplot(test.frame, aes((Sequence-90)*.02, Maybe/1000)) + geom_line() + scale_x_continuous(limits = c(0, 2048)*.02) + scale_y_continuous(limits=c(0, 1000000)) + geom_vline(xintercept=6.40, lty=2) + geom_vline(xintercept=20.22, lty=2)#
+test
+test <- ggplot(test.frame, aes((Sequence-88)*.02, Maybe/1000)) + geom_line() + scale_x_continuous(limits = c(0, 2048)*.02) + scale_y_continuous(limits=c(0, 1000000)) + geom_vline(xintercept=6.40, lty=2) + geom_vline(xintercept=20.22, lty=2)#
+test
+test <- ggplot(test.frame, aes((Sequence-88)*.02, Maybe/1000)) + geom_line() + scale_x_continuous(limits = c(0, 15)) + scale_y_continuous(limits=c(0, 1000000)) + geom_vline(xintercept=6.40, lty=2) + geom_vline(xintercept=20.22, lty=2)#
+test
+raw <- "/Users/lee/Desktop/F4352_TR-MA-007.pdz"#
+#
+#fileSize <- file.info("/Users/lee/Desktop/02198-Soil Light.pdz")$size#
+#nbrOfRecords <- length(raw) %/% 5#
+#dim(raw) <- c(4, nbrOfRecords)#
+#t.raw <- t(raw)#
+nbrOfRecords <- 10000#
+integers <- readBin(con=raw, what="integer", size=4, n=nbrOfRecords, endian="little")#
+floats <- readBin(con=raw, what="float", size=4, n=nbrOfRecords, endian="little")#
+numbers <- readBin(con=raw, what="numeric", size=4, n=nbrOfRecords, endian="little")#
+doubles <- readBin(con=raw, what="double", size=4, n=nbrOfRecords, endian="little")#
+ints <- readBin(con=raw, what="int", size=4, n=nbrOfRecords, endian="little")#
+logicals <- readBin(con=raw, what="logical", size=4, n=nbrOfRecords, endian="little")#
+complexes <- readBin(con=raw, what="complex",  n=nbrOfRecords, endian="little")#
+characters <- readBin(con=raw, what="character", size=4, n=nbrOfRecords, endian="little")#
+raws <- readBin(con=raw, what="raw", size=1, n=nbrOfRecords, endian="little")#
+sequence <- seq(1, length(ints), 1)#
+#
+test.frame <- data.frame(Sequence=sequence, Maybe=integers)#
+test <- ggplot(test.frame, aes((Sequence-88)*.02, Maybe/1000)) + geom_line() + scale_x_continuous(limits = c(0, 2048)*.02) + scale_y_continuous(limits=c(0, 1000000)) + geom_vline(xintercept=6.40, lty=2) + geom_vline(xintercept=20.22, lty=2)#
+ test
+raw <- "/Users/lee/Desktop/F4352_TR-MA-007.pdz"#
+#
+#fileSize <- file.info("/Users/lee/Desktop/02198-Soil Light.pdz")$size#
+#nbrOfRecords <- length(raw) %/% 5#
+#dim(raw) <- c(4, nbrOfRecords)#
+#t.raw <- t(raw)#
+nbrOfRecords <- 10000#
+integers <- readBin(con=raw, what="integer", size=4, n=nbrOfRecords, endian="little")#
+floats <- readBin(con=raw, what="float", size=4, n=nbrOfRecords, endian="little")#
+numbers <- readBin(con=raw, what="numeric", size=4, n=nbrOfRecords, endian="little")#
+doubles <- readBin(con=raw, what="double", size=4, n=nbrOfRecords, endian="little")#
+ints <- readBin(con=raw, what="int", size=4, n=nbrOfRecords, endian="little")#
+logicals <- readBin(con=raw, what="logical", size=4, n=nbrOfRecords, endian="little")#
+complexes <- readBin(con=raw, what="complex",  n=nbrOfRecords, endian="little")#
+characters <- readBin(con=raw, what="character", size=4, n=nbrOfRecords, endian="little")#
+raws <- readBin(con=raw, what="raw", size=1, n=nbrOfRecords, endian="little")#
+sequence <- seq(1, length(ints), 1)#
+#
+test.frame <- data.frame(Sequence=sequence, Maybe=integers)#
+test <- ggplot(test.frame, aes((Sequence-85)*.02, Maybe/1000)) + geom_line() + scale_x_continuous(limits = c(0, 2048)*.02) + scale_y_continuous(limits=c(0, 1000000)) + geom_vline(xintercept=6.40, lty=2) + geom_vline(xintercept=20.22, lty=2)#
+ test
+raw <- "/Users/lee/Desktop/F4352_TR-MA-007.pdz"#
+#
+#fileSize <- file.info("/Users/lee/Desktop/02198-Soil Light.pdz")$size#
+#nbrOfRecords <- length(raw) %/% 5#
+#dim(raw) <- c(4, nbrOfRecords)#
+#t.raw <- t(raw)#
+nbrOfRecords <- 10000#
+integers <- readBin(con=raw, what="integer", size=4, n=nbrOfRecords, endian="little")#
+floats <- readBin(con=raw, what="float", size=4, n=nbrOfRecords, endian="little")#
+numbers <- readBin(con=raw, what="numeric", size=4, n=nbrOfRecords, endian="little")#
+doubles <- readBin(con=raw, what="double", size=4, n=nbrOfRecords, endian="little")#
+ints <- readBin(con=raw, what="int", size=4, n=nbrOfRecords, endian="little")#
+logicals <- readBin(con=raw, what="logical", size=4, n=nbrOfRecords, endian="little")#
+complexes <- readBin(con=raw, what="complex",  n=nbrOfRecords, endian="little")#
+characters <- readBin(con=raw, what="character", size=4, n=nbrOfRecords, endian="little")#
+raws <- readBin(con=raw, what="raw", size=1, n=nbrOfRecords, endian="little")#
+sequence <- seq(1, length(ints), 1)#
+#
+test.frame <- data.frame(Sequence=sequence, Maybe=integers)#
+test <- ggplot(test.frame, aes((Sequence-90)*.02, Maybe/1000)) + geom_line() + scale_x_continuous(limits = c(0, 2048)*.02) + scale_y_continuous(limits=c(0, 1000000)) + geom_vline(xintercept=6.40, lty=2) + geom_vline(xintercept=20.22, lty=2)#
+ test
+raw <- "/Users/lee/Desktop/F4352_TR-MA-007.pdz"#
+#
+#fileSize <- file.info("/Users/lee/Desktop/02198-Soil Light.pdz")$size#
+#nbrOfRecords <- length(raw) %/% 5#
+#dim(raw) <- c(4, nbrOfRecords)#
+#t.raw <- t(raw)#
+nbrOfRecords <- 10000#
+integers <- readBin(con=raw, what="integer", size=4, n=nbrOfRecords, endian="little")#
+floats <- readBin(con=raw, what="float", size=4, n=nbrOfRecords, endian="little")#
+numbers <- readBin(con=raw, what="numeric", size=4, n=nbrOfRecords, endian="little")#
+doubles <- readBin(con=raw, what="double", size=4, n=nbrOfRecords, endian="little")#
+ints <- readBin(con=raw, what="int", size=4, n=nbrOfRecords, endian="little")#
+logicals <- readBin(con=raw, what="logical", size=4, n=nbrOfRecords, endian="little")#
+complexes <- readBin(con=raw, what="complex",  n=nbrOfRecords, endian="little")#
+characters <- readBin(con=raw, what="character", size=4, n=nbrOfRecords, endian="little")#
+raws <- readBin(con=raw, what="raw", size=1, n=nbrOfRecords, endian="little")#
+sequence <- seq(1, length(ints), 1)#
+#
+test.frame <- data.frame(Sequence=sequence, Maybe=integers)#
+test <- ggplot(test.frame, aes((Sequence-95)*.02, Maybe/1000)) + geom_line() + scale_x_continuous(limits = c(0, 2048)*.02) + scale_y_continuous(limits=c(0, 1000000)) + geom_vline(xintercept=6.40, lty=2) + geom_vline(xintercept=20.22, lty=2)#
+ test
+integers
+test <- ggplot(test.frame, aes((Sequence-104)*.02, Maybe/1000)) + geom_line() + scale_x_continuous(limits = c(0, 2048)*.02) + scale_y_continuous(limits=c(0, 1000000)) + geom_vline(xintercept=6.40, lty=2) + geom_vline(xintercept=20.22, lty=2)#
+ test
+test <- ggplot(test.frame, aes((Sequence-109)*.02, Maybe/1000)) + geom_line() + scale_x_continuous(limits = c(0, 2048)*.02) + scale_y_continuous(limits=c(0, 1000000)) + geom_vline(xintercept=6.40, lty=2) + geom_vline(xintercept=20.22, lty=2)#
+ test
+test <- ggplot(test.frame, aes((Sequence-90)*.02, Maybe/1000)) + geom_line() + scale_x_continuous(limits = c(0, 2048)*.02) + scale_y_continuous(limits=c(0, 1000000)) + geom_vline(xintercept=6.40, lty=2) + geom_vline(xintercept=20.22, lty=2)#
+ test
+90+2048
+integers[90:2138]
 shiny::runApp('/Users/lee/GitHub/CloudCal', launch.browser=TRUE)
-install.packages(purrr)
-install.packages("purrr")
+raw <- "/Users/lee/Desktop/F4352_TR-MA-007.pdz"#
+#
+#fileSize <- file.info("/Users/lee/Desktop/02198-Soil Light.pdz")$size#
+#nbrOfRecords <- length(raw) %/% 5#
+#dim(raw) <- c(4, nbrOfRecords)#
+#t.raw <- t(raw)#
+nbrOfRecords <- 10000#
+integers <- readBin(con=raw, what="integer", size=4, n=nbrOfRecords, endian="little")#
+floats <- readBin(con=raw, what="float", size=4, n=nbrOfRecords, endian="little")#
+numbers <- readBin(con=raw, what="numeric", size=4, n=nbrOfRecords, endian="little")#
+doubles <- readBin(con=raw, what="double", size=4, n=nbrOfRecords, endian="little")#
+ints <- readBin(con=raw, what="int", size=4, n=nbrOfRecords, endian="little")#
+logicals <- readBin(con=raw, what="logical", size=4, n=nbrOfRecords, endian="little")#
+complexes <- readBin(con=raw, what="complex",  n=nbrOfRecords, endian="little")#
+characters <- readBin(con=raw, what="character", size=4, n=nbrOfRecords, endian="little")#
+raws <- readBin(con=raw, what="raw", size=1, n=nbrOfRecords, endian="little")#
+sequence <- seq(1, length(ints), 1)#
+#
+test.frame <- data.frame(Sequence=sequence, Maybe=integers)#
+test <- ggplot(test.frame, aes((Sequence-104)*.02, Maybe/1000)) + geom_line() + scale_x_continuous(limits = c(0, 2048)*.02) + scale_y_continuous(limits=c(0, 1000000)) + geom_vline(xintercept=6.40, lty=2) + geom_vline(xintercept=20.22, lty=2)#
+ test
+raw <- "/Users/lee/Desktop/F4352_TR-MA-007.pdz"#
+#
+#fileSize <- file.info("/Users/lee/Desktop/02198-Soil Light.pdz")$size#
+#nbrOfRecords <- length(raw) %/% 5#
+#dim(raw) <- c(4, nbrOfRecords)#
+#t.raw <- t(raw)#
+nbrOfRecords <- 10000#
+integers <- readBin(con=raw, what="integer", size=4, n=nbrOfRecords, endian="little")#
+floats <- readBin(con=raw, what="float", size=4, n=nbrOfRecords, endian="little")#
+numbers <- readBin(con=raw, what="numeric", size=4, n=nbrOfRecords, endian="little")#
+doubles <- readBin(con=raw, what="double", size=4, n=nbrOfRecords, endian="little")#
+ints <- readBin(con=raw, what="int", size=4, n=nbrOfRecords, endian="little")#
+logicals <- readBin(con=raw, what="logical", size=4, n=nbrOfRecords, endian="little")#
+complexes <- readBin(con=raw, what="complex",  n=nbrOfRecords, endian="little")#
+characters <- readBin(con=raw, what="character", size=4, n=nbrOfRecords, endian="little")#
+raws <- readBin(con=raw, what="raw", size=1, n=nbrOfRecords, endian="little")#
+sequence <- seq(1, length(ints), 1)#
+#
+test.frame <- data.frame(Sequence=sequence, Maybe=integers)#
+test <- ggplot(test.frame, aes((Sequence-100)*.02, Maybe/1000)) + geom_line() + scale_x_continuous(limits = c(0, 2048)*.02) + scale_y_continuous(limits=c(0, 1000000)) + geom_vline(xintercept=6.40, lty=2) + geom_vline(xintercept=20.22, lty=2)#
+ test
+raw <- "/Users/lee/Desktop/F4352_TR-MA-007.pdz"#
+#
+#fileSize <- file.info("/Users/lee/Desktop/02198-Soil Light.pdz")$size#
+#nbrOfRecords <- length(raw) %/% 5#
+#dim(raw) <- c(4, nbrOfRecords)#
+#t.raw <- t(raw)#
+nbrOfRecords <- 10000#
+integers <- readBin(con=raw, what="integer", size=4, n=nbrOfRecords, endian="little")#
+floats <- readBin(con=raw, what="float", size=4, n=nbrOfRecords, endian="little")#
+numbers <- readBin(con=raw, what="numeric", size=4, n=nbrOfRecords, endian="little")#
+doubles <- readBin(con=raw, what="double", size=4, n=nbrOfRecords, endian="little")#
+ints <- readBin(con=raw, what="int", size=4, n=nbrOfRecords, endian="little")#
+logicals <- readBin(con=raw, what="logical", size=4, n=nbrOfRecords, endian="little")#
+complexes <- readBin(con=raw, what="complex",  n=nbrOfRecords, endian="little")#
+characters <- readBin(con=raw, what="character", size=4, n=nbrOfRecords, endian="little")#
+raws <- readBin(con=raw, what="raw", size=1, n=nbrOfRecords, endian="little")#
+sequence <- seq(1, length(ints), 1)#
+#
+test.frame <- data.frame(Sequence=sequence, Maybe=integers)#
+test <- ggplot(test.frame, aes((Sequence-110)*.02, Maybe/1000)) + geom_line() + scale_x_continuous(limits = c(0, 2048)*.02) + scale_y_continuous(limits=c(0, 1000000)) + geom_vline(xintercept=6.40, lty=2) + geom_vline(xintercept=20.22, lty=2)#
+ test
+raw <- "/Users/lee/Desktop/F4352_TR-MA-007.pdz"#
+#
+#fileSize <- file.info("/Users/lee/Desktop/02198-Soil Light.pdz")$size#
+#nbrOfRecords <- length(raw) %/% 5#
+#dim(raw) <- c(4, nbrOfRecords)#
+#t.raw <- t(raw)#
+nbrOfRecords <- 10000#
+integers <- readBin(con=raw, what="integer", size=4, n=nbrOfRecords, endian="little")#
+floats <- readBin(con=raw, what="float", size=4, n=nbrOfRecords, endian="little")#
+numbers <- readBin(con=raw, what="numeric", size=4, n=nbrOfRecords, endian="little")#
+doubles <- readBin(con=raw, what="double", size=4, n=nbrOfRecords, endian="little")#
+ints <- readBin(con=raw, what="int", size=4, n=nbrOfRecords, endian="little")#
+logicals <- readBin(con=raw, what="logical", size=4, n=nbrOfRecords, endian="little")#
+complexes <- readBin(con=raw, what="complex",  n=nbrOfRecords, endian="little")#
+characters <- readBin(con=raw, what="character", size=4, n=nbrOfRecords, endian="little")#
+raws <- readBin(con=raw, what="raw", size=1, n=nbrOfRecords, endian="little")#
+sequence <- seq(1, length(ints), 1)#
+#
+test.frame <- data.frame(Sequence=sequence, Maybe=integers)#
+test <- ggplot(test.frame, aes((Sequence-90)*.02, Maybe/1000)) + geom_line() + scale_x_continuous(limits = c(0, 2048)*.02) + scale_y_continuous(limits=c(0, 1000000)) + geom_vline(xintercept=6.40, lty=2) + geom_vline(xintercept=20.22, lty=2)#
+ test
+integer.sub <- integers[90:2137]
+sequence <- seq(1, length(integer.sub), 1)
+time.est <- integers[21]/10
+time.est
+integers[21]
+integers[90:110]
 shiny::runApp('/Users/lee/GitHub/CloudCal', launch.browser=TRUE)
-?flatten_dbl
+raw <- "/Users/lee/Desktop/02359-Soil Trace.pdz"#
+#
+#fileSize <- file.info("/Users/lee/Desktop/02198-Soil Light.pdz")$size#
+#nbrOfRecords <- length(raw) %/% 5#
+#dim(raw) <- c(4, nbrOfRecords)#
+#t.raw <- t(raw)#
+nbrOfRecords <- 10000#
+integers <- readBin(con=raw, what="integer", size=4, n=nbrOfRecords, endian="little")#
+floats <- readBin(con=raw, what="float", size=4, n=nbrOfRecords, endian="little")#
+numbers <- readBin(con=raw, what="numeric", size=4, n=nbrOfRecords, endian="little")#
+doubles <- readBin(con=raw, what="double", size=4, n=nbrOfRecords, endian="little")#
+ints <- readBin(con=raw, what="int", size=4, n=nbrOfRecords, endian="little")#
+logicals <- readBin(con=raw, what="logical", size=4, n=nbrOfRecords, endian="little")#
+complexes <- readBin(con=raw, what="complex",  n=nbrOfRecords, endian="little")#
+characters <- readBin(con=raw, what="character", size=4, n=nbrOfRecords, endian="little")#
+raws <- readBin(con=raw, what="raw", size=1, n=nbrOfRecords, endian="little")#
+sequence <- seq(1, length(ints), 1)#
+#
+test.frame <- data.frame(Sequence=sequence, Maybe=integers)
+test <- ggplot(test.frame, aes((Sequence-124)*.02, Maybe/1000)) + geom_line() + scale_x_continuous(limits = c(0, 2048)*.02) + scale_y_continuous(limits=c(0, 150)) + geom_vline(xintercept=6.40, lty=2) + geom_vline(xintercept=20.22, lty=2)#
+test
+test <- ggplot(test.frame, aes((Sequence-104)*.02, Maybe/1000)) + geom_line() + scale_x_continuous(limits = c(0, 2048)*.02) + scale_y_continuous(limits=c(0, 150)) + geom_vline(xintercept=6.40, lty=2) + geom_vline(xintercept=20.22, lty=2)#
+test
+test <- ggplot(test.frame, aes((Sequence-110)*.02, Maybe/1000)) + geom_line() + scale_x_continuous(limits = c(0, 2048)*.02) + scale_y_continuous(limits=c(0, 150)) + geom_vline(xintercept=6.40, lty=2) + geom_vline(xintercept=20.22, lty=2)#
+test
 shiny::runApp('/Users/lee/GitHub/CloudCal', launch.browser=TRUE)
-?as.vector
+update.packages()
+source('~/Desktop/dist/runShinyApp.R', chdir = TRUE)
+rsconnect::deployApp("~/Desktop/CloudCal", appName("CloudCal"))
+rsconnect::deployApp("~/Desktop/CloudCal", appName="CloudCal"))
+rsconnect::deployApp("~/Desktop/CloudCal", "CloudCal"))
+rsconnect::deployApp("~/Desktop/CloudCal", "CloudCal")
+rsconnect::deployApp("~/Desktop/CloudCal", appName="CloudCal")
+update.packages()
+test <- read.table(file="~/Desktop/trumpApproval.tsv", header=TRUE, sep="\t", na.strings="/", quote = "")
+ls(test)
+library(reshape2)
+test.cast <- dcast(data=test, poll_slug~ sample_subpopulation)
+head(test.cat)
+head(test.cast)
+test2 <-     read.table(file="http://elections.huffingtonpost.com/pollster/api/v2/questions/18-US-House/poll-responses-clean.tsv", header=TRUE, sep="\t", na.strings="/", quote = "")
+ls(test2)
+ls(test)
+full.test <- rbind(test[,c("poll_slug", "sample_subpopulation", "start_date", "end_date", "survey_house", "mode", "observations", "partisanship")], test2[,c("poll_slug", "sample_subpopulation", "start_date", "end_date", "survey_house", "mode", "observations", "partisanship")])
+length(full.test[,1])
+test.cast <- dcast(data=full.test, poll_slug~ sample_subpopulation, value.var=observations)
+test.cast <- dcast(data=full.test, poll_slug~ sample_subpopulation, value.var="observations")
+test.cast <- dcast(data=full.test, poll_slug~ sample_subpopulation, value.var="observations", fun.aggregate=mean)
+head(test.cast)
+test.cast <- dcast(data=full.test, poll_slug~ sample_subpopulation+end_date, value.var="observations", fun.aggregate=mean)
+head(test.cast)
+test.cast <- dcast(data=full.test, poll_slug+end_date~ sample_subpopulation, value.var="observations", fun.aggregate=mean)
+head(test.cast)
+write.csv(test.cast, file="~/test.csv")
+test.cast$Republican <- sum( test.cast[," Registered Voters - Republican"], test.cast[,"Likely Voters - Republican"], test.cast[,"Adults - Republican"]
+)
+test.cast$Republican <- sum( test.cast[," Registered Voters - Republican"], test.cast[,"Likely Voters - Republican"], test.cast[,"Adults - Republican"])
+test.cast$Republican <- sum( test.cast[" Registered Voters - Republican"], test.cast["Likely Voters - Republican"], test.cast["Adults - Republican"])
+test.cast$Republican <- sum( test.cast[,"Registered Voters - Republican"], test.cast[,"Likely Voters - Republican"], test.cast[,"Adults - Republican"])
+head(test.cast$Republican)
+test.cast$Democrat <- sum( test.cast[,"Registered Voters - Democrat"], test.cast[,"Likely Voters - Democrat"], test.cast[,"Adults - Democrat"])
+write.csv(test.cast, file="~/test.csv")
+test.cast$Republican <- sum( test.cast[,"Registered Voters - Republican"], test.cast[,"Likely Voters - Republican"], test.cast[,"Adults - Republican"], na.rm=TRUE)
+test.cast$Democrat <- sum( test.cast[,"Registered Voters - Democrat"], test.cast[,"Likely Voters - Democrat"], test.cast[,"Adults - Democrat"], na.rm=TRUE)
+write.csv(test.cast, file="~/test.csv")
+test.cast$Republican <- mean( test.cast[,"Registered Voters - Republican"], test.cast[,"Likely Voters - Republican"], test.cast[,"Adults - Republican"], na.rm=TRUE)
+test.cast <- test.cast[test.cast == "NaN"] = "NA"
+test.cast[test.cast == "NaN"] = "NA"
+head(test.cast)
+test.cast$Republican <- sum( test.cast[,"Registered Voters - Republican"], test.cast[,"Likely Voters - Republican"], test.cast[,"Adults - Republican"], na.rm=TRUE)
+test.cast[test.cast == "NA"] = 0
+head(test.cast)
+test.cast$Republican <- sum( test.cast[,"Registered Voters - Republican"], test.cast[,"Likely Voters - Republican"], test.cast[,"Adults - Republican"], na.rm=TRUE)
+test.cast[test.cast == "<NA>"] = 0
+head(test.cast)
+test.cast[test.cast == <NA>] = 0
+make.true.NA <- function(x) if(is.character(x)||is.factor(x)){#
+                                  is.na(x) <- x=="NA"; x} else {#
+                                  x}
+testr.cast <- sapply(test.cast, make.true.NA)
+head(testr.cast)
+testr.cast <- sapply(test.cast, as.numeric)
+head(testr.cast)
+testr.cast[testr.cast == "NA"] = 0
+test.cast$Republican <- sum( test.cast[,"Registered Voters - Republican"], test.cast[,"Likely Voters - Republican"], test.cast[,"Adults - Republican"], na.rm=TRUE)
+test.cast <- testr.cast
+test.cast$Republican <- sum( test.cast[,"Registered Voters - Republican"], test.cast[,"Likely Voters - Republican"], test.cast[,"Adults - Republican"], na.rm=TRUE)
+head(test.cast)
+head(testr.cast)
+testr.cast[testr.cast == "NA"] = 0
+head(testr.cast)
+testr.cast[testr.cast == NA] = 0
+head(testr.cast)
+f    test <- read.table(file="http://elections.huffingtonpost.com/pollster/api/v2/questions/00c%20-Pres-45-Trump%20-%20Job%20Approval%20-%20National/poll-responses-clean.tsv", header=TRUE, sep="\t", na.strings="/", quote = "")#
+#
+    test2 <- read.table(file="http://elections.huffingtonpost.com/pollster/api/v2/questions/18-US-House/poll-responses-clean.tsv", header=TRUE, sep="\t", na.strings="/", quote = "")#
+    full.test <- rbind(test[,c("poll_slug", "sample_subpopulation", "start_date", "end_date", "survey_house", "mode", "observations", "partisanship")], test2[,c("poll_slug", "sample_subpopulation", "start_date", "end_date", "survey_house", "mode", "observations", "partisanship")])
+test.cast <- dcast(data=full.test, poll_slug+end_date~ sample_subpopulation, value.var="observations", fun.aggregate=mean)
+head(test.cast)
+test.cast <- sapply(test.cast, as.character)
+head(test.cast)
+test.cast <- sapply(test.cast[,3:length(test.cast)], function(x) as.numeric(as.character(x)))
+head(test.cast)
+length(test.cast)
+test.cast <- dcast(data=full.test, poll_slug+end_date~ sample_subpopulation, value.var="observations", fun.aggregate=mean)
+length(test.cast)
+test.cast <- sapply(test.cast[,3:length(test.cast)], function(x) as.numeric(as.character(x)))
+head(test.cast)
+test.cast[test.cast == "NaN"] = 0
+head(test.cast)
+testr.cast[testr.cast == NA] = 0
+head(testr. full.test <- rbind(test[,c("poll_slug", "sample_subpopulation", "start_date", "end_date", "survey_house", "mode", "observations", "partisanship")], test2[,c("poll_slug", "sample_subpopulation", "start_date", "end_date", "survey_house", "mode", "observations", "partisanship")])#
+    test.cast <- dcast(data=full.test, poll_slug+end_date~ sample_subpopulation, value.var="observations", fun.aggregate=mean)#
+    test.cast <- sapply(test.cast[,3:length(test.cast)], function(x) as.numeric(as.character(x)))#
+    test.cast[test.cast == "NaN"] = 0#
+    test.cast[test.cast == NA] = 0)
+full.test <- rbind(test[,c("poll_slug", "sample_subpopulation", "start_date", "end_date", "survey_house", "mode", "observations", "partisanship")], test2[,c("poll_slug", "sample_subpopulation", "start_date", "end_date", "survey_house", "mode", "observations", "partisanship")])#
+    test.cast <- dcast(data=full.test, poll_slug+end_date~ sample_subpopulation, value.var="observations", fun.aggregate=mean)#
+    test.cast <- sapply(test.cast[,3:length(test.cast)], function(x) as.numeric(as.character(x)))#
+    test.cast[test.cast == "NaN"] = 0#
+    test.cast[test.cast == NA] = 0
+head(test.cast)
+is.na(test.cast[1,"Adults - Democrat"])
+test.cast[is.na(test.cast)] <- 0
+head(test.cast)
+test.cast$Republican <- sum( test.cast[,"Registered Voters - Republican"], test.cast[,"Likely Voters - Republican"], test.cast[,"Adults - Republican"])
+test.cast <- sapply(test.cast[,3:length(test.cast)], function(x) as.numeric(as.character(x)))#
+    test.cast[test.cast == "NaN"] = 0#
+    test.cast[is.na(test.cast)] <- 0
+is.numeric(test.cast[,"Registered Voters - Republican"])
+test.cast$Republican <- rowSums( test.cast[,c("Registered Voters - Republican", "Likely Voters - Republican","Adults - Republican")])
+test.cast$Republican <- rowSums( test.cast[,c("Registered Voters - Republican", "Likely Voters - Republican", "Adults - Republican")])
+sub.frame <- test.cast[,c("Registered Voters - Republican", "Likely Voters - Republican", "Adults - Republican")]
+length(test.cast)
+test.cast <- as.data.frame(test.cast)
+length(test.cast)
+head(test.cast)
+test <- read.table(file="http://elections.huffingtonpost.com/pollster/api/v2/questions/00c%20-Pres-45-Trump%20-%20Job%20Approval%20-%20National/poll-responses-clean.tsv", header=TRUE, sep="\t", na.strings="/", quote = "")#
+#
+    test2 <- read.table(file="http://elections.huffingtonpost.com/pollster/api/v2/questions/18-US-House/poll-responses-clean.tsv", header=TRUE, sep="\t", na.strings="/", quote = "")#
+    full.test <- rbind(test[,c("poll_slug", "sample_subpopulation", "start_date", "end_date", "survey_house", "mode", "observations", "partisanship")], test2[,c("poll_slug", "sample_subpopulation", "start_date", "end_date", "survey_house", "mode", "observations", "partisanship")])#
+    test.cast <- dcast(data=full.test, poll_slug+end_date~ sample_subpopulation, value.var="observations", fun.aggregate=mean)#
+    test.cast <- sapply(test.cast[,3:length(test.cast)], function(x) as.numeric(as.character(x)))#
+    test.cast[test.cast == "NaN"] = 0#
+    test.cast[is.na(test.cast)] <- 0#
+    test.cast <- as.data.frame(test.cast)#
+    test.cast$Republican <- rowSums( test.cast[,c("Registered Voters - Republican", "Likely Voters - Republican", "Adults - Republican")])
+head(test.cast$Republican)
+test.cast$Democrat <- rowSums( test.cast[,c("Registered Voters - Democrat", "Likely Voters - Democrat", "Adults - Democrat")])
+write.csv(test.cast, file="~/test.csv")
+test.cast <- sapply(test.cast[,3:length(test.cast)], function(x) as.numeric(as.character(x)))#
+    test.cast[test.cast == "NaN"] = 0#
+    test.cast[is.na(test.cast)] <- 0#
+    test.cast <- as.data.frame(test.cast)
+head(test.cast)
+test.cast[,3:length(test.cast)] <- sapply(test.cast[,3:length(test.cast)], function(x) as.numeric(as.character(x)))#
+    test.cast[test.cast == "NaN"] = 0#
+    test.cast[is.na(test.cast)] <- 0#
+    test.cast <- as.data.frame(test.cast)
+head(test.cast)
+test.cast <- dcast(data=full.test, poll_slug+end_date~ sample_subpopulation, value.var="observations", fun.aggregate=mean)#
+    test.cast[,3:length(test.cast)] <- sapply(test.cast[,3:length(test.cast)], function(x) as.numeric(as.character(x)))#
+    test.cast[test.cast == "NaN"] = 0#
+    test.cast[is.na(test.cast)] <- 0#
+    test.cast <- as.data.frame(test.cast)
+head(test.cast)
+test.cast$Republican <- rowSums( test.cast[,c("Registered Voters - Republican", "Likely Voters - Republican", "Adults - Republican")])
+head(test.cast$Republican)
+test.cast$Democrat <- rowSums( test.cast[,c("Registered Voters - Democrat", "Likely Voters - Democrat", "Adults - Democrat")])
+write.csv(test.cast, file="~/test.csv")
+test.cast[,3:length(test.cast)] <- sapply(test.cast[,3:length(test.cast)], function(x) as.numeric(as.character(x)))#
+    test.cast[test.cast == "NaN"] = 0#
+    test.cast[is.na(test.cast)] <- 0#
+    test.cast <- as.data.frame(test.cast)#
+    test.cast$Total <- rowSums( test.cast[,c("Registered Voters", "Likely Voters", "Adults")])#
+    test.cast$Republican <- rowSums( test.cast[,c("Registered Voters - Republican", "Likely Voters - Republican", "Adults - Republican")])/test.cast$Total#
+    test.cast$Democrat <- rowSums( test.cast[,c("Registered Voters - Democrat", "Likely Voters - Democrat", "Adults - Democrat")])/test.cast$Total#
+    test.cast$Independent <- rowSums( test.cast[,c("Registered Voters - Independent", "Likely Voters - Independent", "Adults - Independent")])/test.cast$Total
+test.cast$Independent <- rowSums( test.cast[,c("Registered Voters - independent", "Likely Voters - independent", "Adults - independent")])/test.cast$Total
+write.csv(test.cast, file="~/test.csv")
+test.cast <- dcast(data=full.test, poll_slug+end_date~ sample_subpopulation, value.var="observations", fun.aggregate=mean)#
+    test.cast[,3:length(test.cast)] <- sapply(test.cast[,3:length(test.cast)], function(x) as.numeric(as.character(x)))#
+    test.cast[test.cast == "NaN"] = 0#
+    test.cast[is.na(test.cast)] <- 0#
+    test.cast <- as.data.frame(test.cast)#
+    test.cast$Total <- rowSums( test.cast[,c("Registered Voters", "Likely Voters", "Adults")])#
+    test.cast$Republican <- rowSums( test.cast[,c("Registered Voters - Republican", "Likely Voters - Republican", "Adults - Republican")])/test.cast$Total#
+    test.cast$Democrat <- rowSums( test.cast[,c("Registered Voters - Democrat", "Likely Voters - Democrat", "Adults - Democrat")])/test.cast$Total#
+    test.cast$Independent <- rowSums( test.cast[,c("Registered Voters - independent", "Likely Voters - independent", "Adults - independent")])/test.cast$Total
+write.csv(test.cast, file="~/test.csv")
+test.cast[,3:length(test.cast)] <- sapply(test.cast[,3:length(test.cast)], function(x) as.numeric(as.character(x)))#
+    test.cast[test.cast == "NaN"] = 0#
+    test.cast[is.na(test.cast)] <- 0#
+    test.cast <- as.data.frame(test.cast)#
+    test.cast$Total <- rowSums( test.cast[,c("Registered Voters", "Likely Voters", "Adults")])
+test.cast$Republican <- rowSums( test.cast[,grepl( "Republican" , names(test.cast ) )])/test.cast$Total
+test.cast <- dcast(data=full.test, poll_slug+end_date~ sample_subpopulation, value.var="observations", fun.aggregate=mean)#
+    test.cast[,3:length(test.cast)] <- sapply(test.cast[,3:length(test.cast)], function(x) as.numeric(as.character(x)))#
+    test.cast[test.cast == "NaN"] = 0#
+    test.cast[is.na(test.cast)] <- 0#
+    test.cast <- as.data.frame(test.cast)#
+    test.cast$Total <- rowSums( test.cast[,c("Registered Voters", "Likely Voters", "Adults")])#
+    test.cast$Republican <- rowSums( test.cast[,grepl( "Republican" , names(test.cast ) )])/test.cast$Total#
+    test.cast$Democrat <- rowSums( test.cast[,grepl( "Democrat" , names(test.cast ) )])/test.cast$Total#
+    test.cast$Independent <- rowSums( test.cast[,grepl( "independent" , names(test.cast ) )])/test.cast$Total
+write.csv(test.cast, file="~/test.csv")
+shiny::runApp("~/GitHub/pollChangePoint")
+x <- c(1, 2,3)
+sd(x)
+shiny::runApp("~/GitHub/pollChangePoint")
+rsconnect::deployApp("~/GitHub/pollChangePoint", appName="pollChangePoint")
+update.packages(0)
+update.packages()
 shiny::runApp('/Users/lee/GitHub/CloudCal', launch.browser=TRUE)
-shiny::runApp('/Users/lee/GitHub/CloudCal', launch.browser=TRUE)
-shiny::runApp('/Users/lee/GitHub/Compass', launch.browser=TRUE)
+cal.lmsummary <-function(lm.object){#
+    res<-c(paste(as.character(summary(lm.object)$call),collapse=" "),#
+    length(lm.object$model),#
+    summary(lm.object)$r.squared,#
+    summary(lm.object)$adj.r.squared,#
+    summary(lm.object)$fstatistic,#
+    pf(summary(lm.object)$fstatistic[1],summary(lm.object)$fstatistic[2],summary(lm.object)$fstatistic[3],lower.tail=FALSE))#
+    names(res)<-c("Call","n", "R2","Adj. R2",#
+    "F-statistic","numdf","dendf","p-value")#
+    return(res)}#
+val.lmsummary <-function(lm.object){#
+    res<-c(paste(as.character(summary(lm.object)$call),collapse=" "),#
+    lm.object$coefficients[1],#
+    lm.object$coefficients[2],#
+    length(lm.object$model),#
+    summary(lm.object)$coefficients[2,2],#
+    summary(lm.object)$r.squared,#
+    summary(lm.object)$adj.r.squared,#
+    summary(lm.object)$fstatistic,#
+    pf(summary(lm.object)$fstatistic[1],summary(lm.object)$fstatistic[2],summary(lm.object)$fstatistic[3],lower.tail=FALSE))#
+    names(res)<-c("Call","Intercept","Slope","n","Slope SE","R2","Adj. R2",#
+    "F-statistic","numdf","dendf","p-value")#
+    return(res)}
+F4166ManureLightPred <- readRDS("/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/Manure Val Tests/F4166ManureLightVal.quant")
+F4352ManureLight <- readRDS("/Users/lee/Dropbox/Documents/ICRAF/2017 Data/New ICRAF Tracer 5i Cals Final/ICRAF 5i 900F4352 Cal/R Cals/900F4352ManureLight.quant")
+str(F4352ManureLight)
+test.element <- F4352ManureLight[["calList"]][[2]][["Ca.K.alpha"]]
+summary(test.element)
+str( F4352ManureLight[["calList"]])
+str( F4352ManureLight[["calList"]][["Ca.K.alpha"]])
+str( F4352ManureLight[["calList"]][["Ca.K.alpha"]][[2]])
+summar( F4352ManureLight[["calList"]][["Ca.K.alpha"]][[2]])
+summary( F4352ManureLight[["calList"]][["Ca.K.alpha"]][[2]])
+cal.lmsummary(F4352ManureLight[["calList"]][["Ca.K.alpha"]][[2]])
+test.lm <- lm(c(1, 2, 3)~c(3, 1, 2))
+cal.lmsummary(test.lm)
+cal.lmsummary <-function(lm.object){#
+    res<-c(paste(as.character(summary(lm.object)$call),collapse=" "),#
+    length(lm.object$model),#
+    summary(lm.object)$r.squared,#
+    summary(lm.object)$adj.r.squared,#
+    summary(lm.object)$fstatistic,#
+    pf(summary(lm.object)$fstatistic[3],lower.tail=FALSE))#
+    names(res)<-c("Call","n", "R2","Adj. R2",#
+    "F-statistic","numdf","dendf","p-value")#
+    return(res)}
+cal.lmsummary(test.lm)
+cal.lmsummary <-function(lm.object){#
+    res<-c(paste(as.character(summary(lm.object)$call),collapse=" "),#
+    length(lm.object$model),#
+    summary(lm.object)$r.squared,#
+    summary(lm.object)$adj.r.squared,#
+    summary(lm.object)$fstatistic,#
+    pf(summary(lm.object)$fstatistic[3],lower.tail=FALSE))#
+    names(res)<-c("Call","n", "R2","Adj. R2",#
+    "F-statistic","p-value")#
+    return(res)}
+cal.lmsummary(test.lm)
+shiny::runApp("~/GitHub/Compass")
+?updateNumericInput
+shiny::runApp("~/GitHub/Compass")
+shiny::runApp("~/GitHub/Compass")
+?dropdownButton
+shiny::runApp("~/GitHub/Compass")
+shiny::runApp("~/GitHub/Compass")
+shiny::runApp("~/GitHub/Compass")
+shiny::runApp("~/GitHub/Compass")
+shiny::runApp("~/GitHub/Compass")
+shiny::runApp("~/GitHub/Compass")
