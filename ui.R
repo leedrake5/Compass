@@ -3,6 +3,7 @@ library(DT)
 library(dplyr)
 library(shinythemes)
 library(data.table)
+library(shinyWidgets)
 
 
 
@@ -36,8 +37,17 @@ uiOutput('uipercentadjustmgcl'),
 uiOutput('uiadjustso4'),
 uiOutput('uipercentadjustso4'),
 
+dropdownButton(
+tags$h3("Manual Changes"), icon = icon("gear"),
+selectInput('traditionalmgcl', "Alternative MgCl Calculation", choices=c("Calculated", "Traditional", "All Methods Averaged"), selected="Traditional"),
+numericInput('adjustmgcl', "Adjust MgCL", value=0),
+sliderInput('percentadjustmgcl', label=NULL, min=0.5, max=2, value=1, step=0.01),
+numericInput('adjustso4', "Adjust SO4", value=0),
+sliderInput('percentadjustso4', label=NULL, min=0.5, max=2, value=1, step=0.01),
+tooltip = tooltipOptions(title = "Click for manual options")
+),
 
-checkboxInput('advancedadjust', "Manually Adjust Values", value=FALSE),
+
 checkboxInput('manualoverride', "Manually Choose Calibration", value=FALSE),
 uiOutput('selectcal'),
 checkboxInput('manualproduct', "Manually Choose Product", value=FALSE),

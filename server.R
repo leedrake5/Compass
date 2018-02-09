@@ -37,47 +37,6 @@ shinyServer(function(input, output, session) {
     })
     
     
-    output$uiadjustmgcl <- renderUI({
-        
-        if(input$advancedadjust==TRUE){
-            numericInput('adjustmgcl', "Adjust MgCL", value=0)
-        } else {
-            p()
-        }
-        
-    })
-    
-    output$uipercentadjustmgcl <- renderUI({
-        
-        if(input$advancedadjust==TRUE){
-            sliderInput('percentadjustmgcl', label=NULL, min=0.5, max=2, value=1, step=0.01)
-        } else {
-            p()
-        }
-        
-    })
-    
-    
-    output$uiadjustso4 <- renderUI({
-        
-        if(input$advancedadjust==TRUE){
-            numericInput('adjustso4', "Adjust SO4", value=0)
-        } else {
-            p()
-        }
-        
-    })
-    
-    
-    output$uipercentadjustso4 <- renderUI({
-        
-        if(input$advancedadjust==TRUE){
-            sliderInput('percentadjustso4', label=NULL, min=0.5, max=2, value=1, step=0.01)
-        } else {
-            p()
-        }
-        
-    })
     
 
     
@@ -114,61 +73,38 @@ shinyServer(function(input, output, session) {
     })
     
     
-    output$uitraditionalmgcl <- renderUI({
-        
-        if(input$advancedadjust==TRUE){
-            selectInput('traditionalmgcl', "Alternative MgCl Calculation", choices=c("Calculated", "Traditional", "All Methods Averaged"), selected="Traditional")
-        } else {
-            p()
-        }
-        
-    })
+
     
     
     MgClTrad <- reactive({
         
-        if(input$advancedadjust==TRUE){
             input$traditionalmgcl
-        } else {
-            "Traditional"
-        }
+
     })
     
     MgClAdjust <- reactive({
         
-        if(input$advancedadjust==TRUE){
             input$adjustmgcl
-        } else {
-            0
-        }
+
     })
     
     MgClPAdjust <- reactive({
         
-        if(input$advancedadjust==TRUE){
             input$percentadjustmgcl
-        } else {
-            1
-        }
+
     })
     
     
     SO4Adjust <- reactive({
         
-        if(input$advancedadjust==TRUE){
             input$adjustso4
-        } else {
-            0
-        }
+
     })
     
     SO4PAdjust <- reactive({
         
-        if(input$advancedadjust==TRUE){
             input$percentadjustso4
-        } else {
-            1
-        }
+
     })
     
 

@@ -1,4 +1,4 @@
-list.of.packages <- c("pbapply", "reshape2", "dplyr", "shiny", "data.table", "DT", "shinythemes")
+list.of.packages <- c("pbapply", "reshape2", "dplyr", "shiny", "data.table", "DT", "shinythemes", "shinyWidgets")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages, repos="http://cran.cnr.berkeley.edu")
 
